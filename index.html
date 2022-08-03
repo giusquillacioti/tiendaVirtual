@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="./img/icon.png">
+    <link rel="stylesheet" href="./style/style.css">
+
+    <title id="tituloPagina">Tienda Virtual</title>
+</head>
+
+<body>
+
+    <header>
+        <figure class="icon">
+            <img src="./img/shoppingBag.png" alt="icono bolsa de compras" height="40" width="40">
+        </figure>
+        <h1 id="titulo">Mi Tienda Virtual</h1>
+    </header>
+
+    <main>
+
+        <section class="start">
+
+            <p><strong>¡Bienvenido/a!</strong> Esta es tu tienda virtual. En ella podrás exhibir y vender de forma
+                remota lo que tu emprendimiento tiene para ofrecer.
+                Ingresá el nombre de tu emprendimiento (este se mostrará como título de la página):</p>
+
+            <div>
+                <input type="text" id="tituloPersonalizado" placeholder="Mi Tienda Virtual">
+                <input id="btnTitulo" type="submit" value="Definir título">
+                <input id="btnResetTitulo" type="button" value="Resetear título">
+            </div>
+
+        </section>
+
+        <h2>Productos</h2>
+
+        <section class="draftContainer">
+
+            <div class="draft">
+                <h3>Nuevo Producto</h3>
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre">
+                <label for="imagen">Imagen</label>
+                <input type="url" name="imagen" id="imagen">
+                <label for="precio">Precio</label>
+                <input type="number" name="precio" id="precio">
+                <label for="stock">Cantidad disponible</label>
+                <input type="number" name="stock" id="stock">
+                <input id="btnNuevo" type="submit" value="Agregar nuevo producto">
+            </div>
+
+            <div class="tutorialContainer">
+                <div class="imgTutorial">
+                    <h4>¡Atención!</h4>
+                    <p>Nuestro sitio web trabaja con imágenes de <a href="https://www.google.com/intl/es/drive/"
+                            target="_blank">Google Drive</a>. Para poder exhibir las fotos de tus productos, seguí estos
+                        pasos:</p>
+                    <ol>
+                        <li>Subí la imagen del producto que desees publicar a tu cuenta de Google Drive.</li>
+                        <li>Asegurate de que el acceso general del archivo sea <strong>público</strong> (para cualquiera
+                            que tenga el vínculo), y copia el vínculo de la imagen.</li>
+                        <li>Cuando completes el formulario de producto, ingresá el <strong>código único</strong>
+                            (resaltado en la captura) en el campo <strong>Imagen</strong>.</li>
+                    </ol>
+                    <figure>
+                        <img src="./img/captura.JPG" alt="código único del vínculo de un archivo Drive" width="400">
+                    </figure>
+                    <p><strong>Aclaración:</strong> las imagenes se podrán apreciar mejor si son
+                        <strong>cuadradas</strong>.
+                    </p>
+                </div>
+
+                <iframe width="300" height="215" src="https://www.youtube-nocookie.com/embed/fYsqLs0e-_s"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+
+        </section>
+
+
+        <section class="display"></section>
+
+    </main>
+
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
