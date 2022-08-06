@@ -62,11 +62,16 @@ function Producto(nombre, imagen, precio, stock) {
 function agregarProducto(nombre, imagen, precio, stock) {
     const producto = new Producto(nombre, imagen, precio, stock);
     productos.unshift(producto);
+
+    localStorage.setItem('productos', JSON.stringify(productos));
 }
 
 function crearTarjeta() {
     display.innerHTML = '';
-    productos.forEach(producto => {
+
+    let productosGuardados = JSON.parse(localStorage.getItem('productos'));
+
+    productosGuardados.forEach(producto => {
         if (producto.stock == 0 || producto.stock == null) {
             display.innerHTML += `<div class="card" id="${producto.id}">
             <h3>${producto.nombre}</h3>
@@ -97,3 +102,7 @@ btnNuevo.addEventListener('click', () => {
 });
 
 
+
+if (JSON.parse(localStorage.getItem('productos')) != null) { 
+    crearTarjeta();
+}
