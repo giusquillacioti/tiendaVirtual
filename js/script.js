@@ -3,16 +3,23 @@
 
 const titulo = document.getElementById('titulo'),
     tituloPagina = document.getElementById('tituloPagina'),
-    tituloPersonalizado = document.getElementById('tituloPersonalizado'),
+    inputTitulo = document.getElementById('inputTitulo'),
     btnTitulo = document.getElementById('btnTitulo'),
     btnResetTitulo = document.getElementById('btnResetTitulo');
 
 function cambiarTitulo() {
-    titulo.innerText = tituloPersonalizado.value;
-    tituloPagina.innerText = `${tituloPersonalizado.value} | Tienda Virtual`;
-
-    localStorage.setItem('nuevoTitulo', tituloPersonalizado.value);
-    localStorage.setItem('nuevoTituloPagina', `${tituloPersonalizado.value} | Tienda Virtual`)
+    const nuevoTitulo = inputTitulo.value,
+        nuevoTituloPagina = `${inputTitulo.value} | Tienda Virtual`;
+    
+    if (nuevoTitulo == '') {
+        alert('Debes ingresar algún valor para poder cambiar el título de la tienda.');
+    } else {
+        titulo.innerText = nuevoTitulo;
+        tituloPagina.innerText = `${nuevoTituloPagina}`;
+        
+        localStorage.setItem('nuevoTitulo', nuevoTitulo);
+        localStorage.setItem('nuevoTituloPagina', `${nuevoTituloPagina}`);
+    }
 }
 
 btnTitulo.addEventListener('click', cambiarTitulo);
@@ -21,15 +28,15 @@ function resetearTitulo() {
     titulo.innerText = 'Mi Tienda Virtual';
     tituloPagina.innerText = 'Tienda Virtual';
 
-    localStorage.setItem('nuevoTitulo', 'Mi Tienda Virtual');
-    localStorage.setItem('nuevoTituloPagina', 'Tienda Virtual')
+    localStorage.removeItem('nuevoTitulo');
+    localStorage.removeItem('nuevoTituloPagina');
 }
 
 btnResetTitulo.addEventListener('click', resetearTitulo)
 
-if(localStorage.getItem('nuevoTitulo') != null){
-titulo.innerText = localStorage.getItem('nuevoTitulo');
-tituloPagina.innerText = localStorage.getItem('nuevoTituloPagina');
+if (localStorage.getItem('nuevoTitulo') != null) {
+    titulo.innerText = localStorage.getItem('nuevoTitulo');
+    tituloPagina.innerText = localStorage.getItem('nuevoTituloPagina');
 }
 
 
@@ -41,7 +48,8 @@ const productos = [],
     nombre = document.getElementById('nombre'),
     imagen = document.getElementById('imagen'),
     precio = document.getElementById('precio'),
-    stock = document.getElementById('stock');
+    stock = document.getElementById('stock'),
+    main = document.querySelector('main');
 
 function Producto(nombre, imagen, precio, stock) {
     this.id = parseInt(Math.random() * 10000).toString();
