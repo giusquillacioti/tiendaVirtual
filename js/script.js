@@ -77,34 +77,34 @@ function crearTarjeta() {
     productosGuardados.forEach(producto => {
         if (producto.stock == 0 || producto.stock == null) {
             display.innerHTML += `<div class="card" id="${producto.id}">
-            <h3>${producto.nombre}</h3>
-            <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
-            <h4>$ ${producto.precio}</h4>
-            <h4>SIN STOCK</h4>
-            <div class="cardBtns">
-                <button class="btn userView" id="modificarProducto">Modificar</button>
-                <button class="btn userView" id="eliminarProducto">Eliminar</button>
+                <h3>${producto.nombre}</h3>
+                <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
+                <h4>$ ${producto.precio}</h4>
+                <h4>SIN STOCK</h4>
+            <div class="cardBtns userView">
+                <button class="btn" id="modificarProducto">Modificar</button>
+                <button class="btn" id="eliminarProducto">Eliminar</button>
             </div>
-        </div>`
+            </div>`
         } else if (producto.stock <= 5) {
             display.innerHTML += `<div class="card" id="${producto.id}">
-            <h3>${producto.nombre}</h3>
-            <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
-            <h4>$ ${producto.precio}</h4>
-            <h4>¡Quedan ${producto.stock} disponibles!</h4>
-            <div class="cardBtns">
-                <button class="btn userView" id="modificarProducto">Modificar</button>
-                <button class="btn userView" id="eliminarProducto">Eliminar</button>
+                <h3>${producto.nombre}</h3>
+                <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
+                <h4>$ ${producto.precio}</h4>
+                <h4>¡Quedan ${producto.stock} disponibles!</h4>
+            <div class="cardBtns userView">
+                <button class="btn" id="modificarProducto">Modificar</button>
+                <button class="btn" id="eliminarProducto">Eliminar</button>
             </div>
             </div>`
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
-            <h3>${producto.nombre}</h3>
-            <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
-            <h4>$ ${producto.precio}</h4>
-            <div class="cardBtns">
-                <button class="btn userView" id="modificarProducto">Modificar</button>
-                <button class="btn userView" id="eliminarProducto">Eliminar</button>
+                <h3>${producto.nombre}</h3>
+                <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
+                <h4>$ ${producto.precio}</h4>
+            <div class="cardBtns userView">
+                <button class="btn" id="modificarProducto">Modificar</button>
+                <button class="btn" id="eliminarProducto">Eliminar</button>
             </div>
             </div>`
         };
