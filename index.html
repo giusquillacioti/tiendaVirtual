@@ -15,15 +15,21 @@
 <body>
 
     <header>
-        <figure class="icon">
-            <img src="./img/shoppingBag.png" alt="icono bolsa de compras" height="40" width="40">
-        </figure>
-        <h1 id="titulo">Mi Tienda Virtual</h1>
+        <div class="headerTitle">
+            <figure class="icon">
+                <img src="./img/shoppingBag.png" alt="icono bolsa de compras" height="40" width="40">
+            </figure>
+            <h1 id="titulo">Mi Tienda Virtual</h1>
+        </div>
+
+        <div>
+            <button id="vistaPrevia">Vista previa</button>
+        </div>
     </header>
 
     <main>
 
-        <section class="start">
+        <section class="start userView">
 
             <p><strong>¡Bienvenido/a!</strong> Esta es tu tienda virtual. En ella podrás exhibir y vender de forma
                 remota lo que tu emprendimiento tiene para ofrecer.
@@ -31,15 +37,15 @@
 
             <div>
                 <input type="text" id="inputTitulo" placeholder="Mi Tienda Virtual">
-                <input id="btnTitulo" type="submit" value="Definir título">
-                <input id="btnResetTitulo" type="button" value="Resetear título">
+                <input id="btnTitulo" class="startBtns" type="submit" value="Definir título">
+                <input id="btnResetTitulo" class="startBtns" type="button" value="Resetear título">
             </div>
 
         </section>
 
         <h2>Productos</h2>
 
-        <section class="draftContainer">
+        <section class="draftContainer userView">
 
             <div class="draft">
                 <h3>Nuevo Producto</h3>

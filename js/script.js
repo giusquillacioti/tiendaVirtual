@@ -10,13 +10,13 @@ const titulo = document.getElementById('titulo'),
 function cambiarTitulo() {
     const nuevoTitulo = inputTitulo.value,
         nuevoTituloPagina = `${inputTitulo.value} | Tienda Virtual`;
-    
+
     if (nuevoTitulo == '') {
         alert('Debes ingresar algún valor para poder cambiar el título de la tienda.');
     } else {
         titulo.innerText = nuevoTitulo;
         tituloPagina.innerText = `${nuevoTituloPagina}`;
-        
+
         localStorage.setItem('nuevoTitulo', nuevoTitulo);
         localStorage.setItem('nuevoTituloPagina', `${nuevoTituloPagina}`);
     }
@@ -38,6 +38,9 @@ if (localStorage.getItem('nuevoTitulo') != null) {
     titulo.innerText = localStorage.getItem('nuevoTitulo');
     tituloPagina.innerText = localStorage.getItem('nuevoTituloPagina');
 }
+
+
+
 
 
 //PRODUCTOS
@@ -78,6 +81,10 @@ function crearTarjeta() {
             <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
             <h4>$ ${producto.precio}</h4>
             <h4>SIN STOCK</h4>
+            <div class="cardBtns">
+                <button class="btn userView" id="modificarProducto">Modificar</button>
+                <button class="btn userView" id="eliminarProducto">Eliminar</button>
+            </div>
         </div>`
         } else if (producto.stock <= 5) {
             display.innerHTML += `<div class="card" id="${producto.id}">
@@ -85,12 +92,20 @@ function crearTarjeta() {
             <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
             <h4>$ ${producto.precio}</h4>
             <h4>¡Quedan ${producto.stock} disponibles!</h4>
+            <div class="cardBtns">
+                <button class="btn userView" id="modificarProducto">Modificar</button>
+                <button class="btn userView" id="eliminarProducto">Eliminar</button>
+            </div>
             </div>`
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
             <h3>${producto.nombre}</h3>
             <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
             <h4>$ ${producto.precio}</h4>
+            <div class="cardBtns">
+                <button class="btn userView" id="modificarProducto">Modificar</button>
+                <button class="btn userView" id="eliminarProducto">Eliminar</button>
+            </div>
             </div>`
         };
     })
@@ -103,6 +118,35 @@ btnNuevo.addEventListener('click', () => {
 
 
 
-if (JSON.parse(localStorage.getItem('productos')) != null) { 
+if (JSON.parse(localStorage.getItem('productos')) != null) {
     crearTarjeta();
 }
+
+
+
+
+
+// VISTA PREVIA
+
+const vistaPrevia = document.getElementById('vistaPrevia');
+
+function borrar() {
+    let userView = document.querySelectorAll('.userView');
+    
+    for (let x of userView) {
+        x.classList.toggle('dNone');
+    }
+}
+
+function cambiarBoton() {
+    if(vistaPrevia.innerText === 'Vista previa') {
+        vistaPrevia.innerText = 'Volver';
+    } else {
+        vistaPrevia.innerText = 'Vista previa';
+    }
+}
+
+vistaPrevia.addEventListener('click', () => {
+    borrar();
+    cambiarBoton();
+});
