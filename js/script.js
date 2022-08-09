@@ -96,6 +96,7 @@ function crearTarjeta() {
                 <button class="btn" id="modificarProducto">Modificar</button>
                 <button class="btn" id="eliminarProducto">Eliminar</button>
             </div>
+            <button class="btn userView dNone">Agregar al carrito</button>
             </div>`
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
@@ -106,6 +107,7 @@ function crearTarjeta() {
                 <button class="btn" id="modificarProducto">Modificar</button>
                 <button class="btn" id="eliminarProducto">Eliminar</button>
             </div>
+            <button class="btn userView dNone">Agregar al carrito</button>
             </div>`
         };
     })
@@ -139,11 +141,7 @@ function borrar() {
 }
 
 function cambiarBoton() {
-    if(vistaPrevia.innerText === 'Vista previa') {
-        vistaPrevia.innerText = 'Volver';
-    } else {
-        vistaPrevia.innerText = 'Vista previa';
-    }
+    vistaPrevia.innerText === 'Vista previa' ? vistaPrevia.innerText = 'Volver' : vistaPrevia.innerText = 'Vista previa';
 }
 
 vistaPrevia.addEventListener('click', () => {
