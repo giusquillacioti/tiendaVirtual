@@ -12,7 +12,7 @@ function cambiarTitulo() {
         nuevoTituloPagina = `${inputTitulo.value} | Tienda Virtual`;
 
     if (nuevoTitulo == '') {
-        alert('Debes ingresar algún valor para poder cambiar el título de la tienda.');
+        Swal.fire('Debes ingresar algún valor para poder cambiar el título de la tienda.')
     } else {
         titulo.innerText = nuevoTitulo;
         tituloPagina.innerText = `${nuevoTituloPagina}`;
