@@ -51,8 +51,7 @@ const productos = JSON.parse(localStorage.getItem('productos')) || [],
     nombre = document.getElementById('nombre'),
     imagen = document.getElementById('imagen'),
     precio = document.getElementById('precio'),
-    stock = document.getElementById('stock'),
-    main = document.querySelector('main');
+    stock = document.getElementById('stock');
 
 function Producto(nombre, imagen, precio, stock) {
     this.id = parseInt(Math.random() * 10000).toString();
@@ -71,6 +70,8 @@ function agregarProducto(nombre, imagen, precio, stock) {
 
 function crearTarjeta() {
     display.innerHTML = '';
+
+    display.classList.add('displayGrid');
 
     let productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
@@ -118,8 +119,6 @@ btnNuevo.addEventListener('click', () => {
     crearTarjeta();
 });
 
-
-
 if (JSON.parse(localStorage.getItem('productos')) != null) {
     crearTarjeta();
 }
@@ -134,7 +133,7 @@ const vistaPrevia = document.getElementById('vistaPrevia');
 
 function borrar() {
     let userView = document.querySelectorAll('.userView');
-    
+
     for (let x of userView) {
         x.classList.toggle('dNone');
     }

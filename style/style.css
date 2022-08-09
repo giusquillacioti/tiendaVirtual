@@ -7,6 +7,7 @@
 
 body {
     background-color: rgb(236, 217, 255);
+    min-height: 100vh;
 }
 
 header {
@@ -60,7 +61,7 @@ h1 {
     width: 100px;
 }
 
-h2{
+h2 {
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -152,9 +153,10 @@ iframe {
     font-family: 'Quicksand', sans-serif;
 }
 
-.display {
+.displayGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
 }
 
 .cardBtns {
@@ -167,6 +169,10 @@ iframe {
     padding: 5px;
 }
 
-.dNone{
+.dNone {
     display: none;
+}
+
+#noProducts {
+    margin: 30px;
 }
