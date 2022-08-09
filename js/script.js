@@ -45,7 +45,7 @@ if (localStorage.getItem('nuevoTitulo') != null) {
 
 //PRODUCTOS
 
-const productos = [],
+const productos = JSON.parse(localStorage.getItem('productos')) || [],
     btnNuevo = document.getElementById('btnNuevo'),
     display = document.querySelector('.display'),
     nombre = document.getElementById('nombre'),
@@ -148,3 +148,8 @@ vistaPrevia.addEventListener('click', () => {
     borrar();
     cambiarBoton();
 });
+
+
+
+
+
