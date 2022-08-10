@@ -1,5 +1,5 @@
 
-//TÍTULO
+// TÍTULO
 
 const titulo = document.getElementById('titulo'),
     tituloPagina = document.getElementById('tituloPagina'),
@@ -43,7 +43,17 @@ if (localStorage.getItem('nuevoTitulo') != null) {
 
 
 
-//PRODUCTOS
+
+
+
+
+
+
+
+
+
+
+// ----------- PRODUCTOS -----------
 
 const productos = JSON.parse(localStorage.getItem('productos')) || [],
     btnNuevo = document.getElementById('btnNuevo'),
@@ -53,6 +63,9 @@ const productos = JSON.parse(localStorage.getItem('productos')) || [],
     precio = document.getElementById('precio'),
     stock = document.getElementById('stock');
 
+
+// FUNCIÓN CONSTRUCTORA
+
 function Producto(nombre, imagen, precio, stock) {
     this.id = parseInt(Math.random() * 10000).toString();
     this.nombre = nombre;
@@ -61,7 +74,7 @@ function Producto(nombre, imagen, precio, stock) {
     this.stock = stock;
 }
 
-//AGREGAR PRODUCTO
+// AGREGAR PRODUCTO
 
 function agregarProducto(nombre, imagen, precio, stock) {
     const producto = new Producto(nombre, imagen, precio, stock);
@@ -78,12 +91,75 @@ function borrarProducto(objectId) {
     localStorage.setItem('productos', JSON.stringify(productos));
 }
 
-//MODIFICAR PRODUCTO
+// MODIFICAR PRODUCTO
 
-function modificarPrecioProducto (objectId, nuevoPrecio){
-    const  productoIndex = productos.findIndex(producto => producto.id === objectId)
-    productos(productoIndex).precio = nuevoPrecio;
-}    
+function modificarProducto(objectId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock) {
+    const productoIndex = productos.findIndex(producto => producto.id === objectId)
+    productos[productoIndex].nombre = nuevoNombre;
+    productos[productoIndex].imagen = nuevaImagen;
+    productos[productoIndex].precio = nuevoPrecio;
+    productos[productoIndex].stock = nuevoStock;
+    localStorage.setItem('productos', JSON.stringify(productos));
+}
+
+//MODIFICAR TARJETA
+
+function inputsModificar(tarjetaId) {
+    const tarjetadeProducto = document.getElementById(tarjetaId);
+    const productoEncontrado = productos.find(producto => producto.id === tarjetaId);
+    tarjetadeProducto.innerHTML = `
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nuevoNombre" value="${productoEncontrado.nombre}">
+        <label for="imagen">Imagen</label>
+        <input type="url" name="imagen" id="nuevaImagen" value="${productoEncontrado.imagen}">
+        <label for="precio">Precio</label>
+        <input type="number" name="precio" id="nuevoPrecio" value="${productoEncontrado.precio}">
+        <label for="stock">Cantidad disponible</label>
+        <input type="number" name="stock" id="nuevoStock" value="${productoEncontrado.stock}">
+        
+        <div class="cardBtns">
+            <button class="btn" id="btnConfirmarModificar">Aceptar</button>
+            <button class="btn" id="btnCancelarModificar">Cancelar</button>
+        </div>`
+
+    const btnConfirmarModificar = document.getElementById('btnConfirmarModificar');
+    const btnCancelarModificar = document.getElementById('btnCancelarModificar');
+
+    // CONFIRMAR CAMBIOS
+
+    btnConfirmarModificar.addEventListener('click', () => {
+        const nuevoNombre = document.getElementById('nuevoNombre').value;
+        const nuevaImagen = document.getElementById('nuevaImagen').value;
+        const nuevoPrecio = document.getElementById('nuevoPrecio').value;
+        const nuevoStock = document.getElementById('nuevoStock').value;
+        modificarProducto(tarjetaId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock);
+        crearTarjeta();
+
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'success',
+            title: 'Los cambios han sido guardados.',
+        })
+    })
+
+    // CANCELAR CAMBIOS
+
+    btnCancelarModificar.addEventListener('click', () => {
+        Swal.fire({
+            title: '¿Estás seguro de que deseas cancelar? Los cambios no serán guardados.',
+            showCancelButton: true,
+            confirmButtonText: 'Si, cancelar',
+            cancelButtonText: `Volver`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                crearTarjeta();
+            };
+        })
+    })
+}
 
 //CREAR TARJETA
 
@@ -139,9 +215,9 @@ function crearTarjeta() {
         btn.addEventListener('click', (e) => {
             Swal.fire({
                 title: '¿Estás seguro de que deseas eliminar este producto?',
-                showDenyButton: true,
+                showCancelButton: true,
                 confirmButtonText: 'Eliminar',
-                denyButtonText: `Cancelar`,
+                cancelButtonText: `Cancelar`,
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
@@ -162,25 +238,13 @@ function crearTarjeta() {
     const btnsModificar = document.getElementsByClassName('btnModificar');
     for (const btn of btnsModificar) {
         btn.addEventListener('click', (e) => {
-
+            inputsModificar(e.target.parentNode.parentNode.id);
         })
     }
+
 }
 
-//----------
-
-/* Swal.fire({
-    title: '¿Estás seguro de que deseas borrar este producto?',
-    showDenyButton: true,
-    confirmButtonText: 'Borrar',
-    denyButtonText: `Cancelar`,
-}).then((result) => {
-    if (result.isConfirmed) {
-        Swal.fire('El producto ha sido eliminado', '', 'success')
-    };
-}) */
-
-//----------
+// EVENTO CREAR TARJETA
 
 btnNuevo.addEventListener('click', () => {
     agregarProducto(nombre.value, imagen.value, precio.value, stock.value);
