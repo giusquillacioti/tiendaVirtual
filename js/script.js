@@ -130,16 +130,42 @@ function crearTarjeta() {
     const btnsEliminar = document.getElementsByClassName('btnEliminar');
     for (const btn of btnsEliminar) {
         btn.addEventListener('click', (e) => {
-
-
-            //adentro de un if que pregunte al usuario si está seguro de que quiere eliminar el producto
-            borrarProducto(e.target.parentNode.parentNode.id);
-            crearTarjeta();
-            console.log(e.target.parentNode.parentNode.id);
+            Swal.fire({
+                title: '¿Estás seguro de que deseas eliminar este producto?',
+                showDenyButton: true,
+                confirmButtonText: 'Eliminar',
+                denyButtonText: `Cancelar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title:'El producto ha sido eliminado',
+                        icon:'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    borrarProducto(e.target.parentNode.parentNode.id);
+                    crearTarjeta();
+                };
+            })
         })
     }
 
 }
+
+//----------
+
+/* Swal.fire({
+    title: '¿Estás seguro de que deseas borrar este producto?',
+    showDenyButton: true,
+    confirmButtonText: 'Borrar',
+    denyButtonText: `Cancelar`,
+}).then((result) => {
+    if (result.isConfirmed) {
+        Swal.fire('El producto ha sido eliminado', '', 'success')
+    };
+}) */
+
+//----------
 
 btnNuevo.addEventListener('click', () => {
     agregarProducto(nombre.value, imagen.value, precio.value, stock.value);
