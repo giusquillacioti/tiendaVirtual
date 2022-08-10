@@ -173,6 +173,6 @@ iframe {
     display: none;
 }
 
-#noProducts {
+.noProducts {
     margin: 30px;
 }

@@ -61,12 +61,24 @@ function Producto(nombre, imagen, precio, stock) {
     this.stock = stock;
 }
 
+//AGREGAR PRODUCTO
+
 function agregarProducto(nombre, imagen, precio, stock) {
     const producto = new Producto(nombre, imagen, precio, stock);
     productos.unshift(producto);
 
     localStorage.setItem('productos', JSON.stringify(productos));
 }
+
+// BORRAR PRODUCTO
+
+function borrarProducto(objectId) {
+    const productoIndex = productos.findIndex(producto => producto.id === objectId)
+    productos.splice(productoIndex,1);
+    localStorage.setItem('productos', JSON.stringify(productos));
+}
+
+//CREAR TARJETA
 
 function crearTarjeta() {
     display.innerHTML = '';
@@ -83,8 +95,8 @@ function crearTarjeta() {
                 <h4>$ ${producto.precio}</h4>
                 <h4>SIN STOCK</h4>
             <div class="cardBtns userView">
-                <button class="btn" id="modificarProducto">Modificar</button>
-                <button class="btn" id="eliminarProducto">Eliminar</button>
+                <button class="btn btnModificar">Modificar</button>
+                <button class="btn btnEliminar">Eliminar</button>
             </div>
             </div>`
         } else if (producto.stock <= 5) {
@@ -94,8 +106,8 @@ function crearTarjeta() {
                 <h4>$ ${producto.precio}</h4>
                 <h4>¡Quedan ${producto.stock} disponibles!</h4>
             <div class="cardBtns userView">
-                <button class="btn" id="modificarProducto">Modificar</button>
-                <button class="btn" id="eliminarProducto">Eliminar</button>
+                <button class="btn btnModificar">Modificar</button>
+                <button class="btn btnEliminar">Eliminar</button>
             </div>
             <button class="btn userView dNone">Agregar al carrito</button>
             </div>`
@@ -105,13 +117,28 @@ function crearTarjeta() {
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
             <div class="cardBtns userView">
-                <button class="btn" id="modificarProducto">Modificar</button>
-                <button class="btn" id="eliminarProducto">Eliminar</button>
+                <button class="btn btnModificar">Modificar</button>
+                <button class="btn btnEliminar">Eliminar</button>
             </div>
             <button class="btn userView dNone">Agregar al carrito</button>
             </div>`
         };
     })
+
+    //BORRAR PRODUCTO
+    
+    const btnsEliminar = document.getElementsByClassName('btnEliminar');
+    for (const btn of btnsEliminar) {
+        btn.addEventListener('click', (e) => {
+
+
+            //adentro de un if que pregunte al usuario si está seguro de que quiere eliminar el producto
+            borrarProducto(e.target.parentNode.parentNode.id);
+            crearTarjeta();
+            console.log(e.target.parentNode.parentNode.id);
+        })
+    }
+
 }
 
 btnNuevo.addEventListener('click', () => {
@@ -121,6 +148,11 @@ btnNuevo.addEventListener('click', () => {
 
 if (JSON.parse(localStorage.getItem('productos')) != null) {
     crearTarjeta();
+}
+
+if(display.innerHTML == ''){
+    display.classList.remove('displayGrid');
+    display.innerHTML = '<h3 class="noProducts">En este momento no hay productos cargados a la tienda.</h3>';
 }
 
 
