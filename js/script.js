@@ -74,9 +74,16 @@ function agregarProducto(nombre, imagen, precio, stock) {
 
 function borrarProducto(objectId) {
     const productoIndex = productos.findIndex(producto => producto.id === objectId)
-    productos.splice(productoIndex,1);
+    productos.splice(productoIndex, 1);
     localStorage.setItem('productos', JSON.stringify(productos));
 }
+
+//MODIFICAR PRODUCTO
+
+function modificarPrecioProducto (objectId, nuevoPrecio){
+    const  productoIndex = productos.findIndex(producto => producto.id === objectId)
+    productos(productoIndex).precio = nuevoPrecio;
+}    
 
 //CREAR TARJETA
 
@@ -126,7 +133,7 @@ function crearTarjeta() {
     })
 
     //BORRAR PRODUCTO
-    
+
     const btnsEliminar = document.getElementsByClassName('btnEliminar');
     for (const btn of btnsEliminar) {
         btn.addEventListener('click', (e) => {
@@ -138,8 +145,8 @@ function crearTarjeta() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
-                        title:'El producto ha sido eliminado',
-                        icon:'success',
+                        title: 'El producto ha sido eliminado',
+                        icon: 'success',
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -150,6 +157,14 @@ function crearTarjeta() {
         })
     }
 
+    //MODIFICAR PRODUCTO
+
+    const btnsModificar = document.getElementsByClassName('btnModificar');
+    for (const btn of btnsModificar) {
+        btn.addEventListener('click', (e) => {
+
+        })
+    }
 }
 
 //----------
@@ -176,7 +191,7 @@ if (JSON.parse(localStorage.getItem('productos')) != null) {
     crearTarjeta();
 }
 
-if(display.innerHTML == ''){
+if (display.innerHTML == '') {
     display.classList.remove('displayGrid');
     display.innerHTML = '<h3 class="noProducts">En este momento no hay productos cargados a la tienda.</h3>';
 }
