@@ -247,8 +247,12 @@ function crearTarjeta() {
 // EVENTO CREAR TARJETA
 
 btnNuevo.addEventListener('click', () => {
-    agregarProducto(nombre.value, imagen.value, precio.value, stock.value);
-    crearTarjeta();
+    if (nombre.value != '' && imagen.value != '' && precio.value != '' && stock.value != ''){
+        agregarProducto(nombre.value, imagen.value, precio.value, stock.value);
+        crearTarjeta();
+    } else {
+        Swal.fire('Todos los campos deben ser completados para crear un nuevo producto.')
+    }
 });
 
 if (JSON.parse(localStorage.getItem('productos')) != null) {
