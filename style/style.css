@@ -29,6 +29,7 @@ header {
 #vistaPrevia {
     margin-right: 20px;
     padding: 5px;
+    width: 120px;
 }
 
 h1 {
@@ -169,10 +170,57 @@ iframe {
     padding: 5px;
 }
 
-.dNone {
-    display: none;
-}
-
 .noProducts {
     margin: 30px;
+}
+
+.optionsContainer {
+    display: none;
+    position: absolute;
+    background-color: rgb(165, 88, 238);
+    padding: 10px;
+    border-radius: 10px;
+    list-style-type: none;
+    font-family: 'Quicksand', sans-serif;
+    right: 0px;
+    width: 120px;
+}
+
+.loginContainer {
+    height: 35px;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+
+.loginContainer figure {
+    display: flex;
+    flex-direction: row-reverse;
+    font-family: 'Quicksand', sans-serif;
+    width: 140px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loginContainer figure figcaption {
+    cursor: pointer;
+}
+
+.loginContainer:hover>.optionsContainer {
+    display: block;
+    margin-right: 10px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.options a {
+    padding: 5px;
+    width: 120px;
+}
+
+.dNone {
+    display: none;
 }

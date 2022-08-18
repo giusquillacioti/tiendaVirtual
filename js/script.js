@@ -171,13 +171,13 @@ function crearTarjeta() {
     let productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
     productosGuardados.forEach(producto => {
-        if (producto.stock == 0 || producto.stock == null) {
+        if (producto.stock == 0) {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
                 <h4>SIN STOCK</h4>
-            <div class="cardBtns userView">
+            <div class="cardBtns loggedBtns dNone">
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
@@ -188,22 +188,22 @@ function crearTarjeta() {
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
                 <h4>¡Quedan ${producto.stock} disponibles!</h4>
-            <div class="cardBtns userView">
+            <div class="cardBtns loggedBtns dNone">
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            <button class="btn userView dNone">Agregar al carrito</button>
+            <button class="btn loggedBtns">Agregar al carrito</button>
             </div>`
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
-            <div class="cardBtns userView">
+            <div class="cardBtns loggedBtns dNone">
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            <button class="btn userView dNone">Agregar al carrito</button>
+            <button class="btn loggedBtns">Agregar al carrito</button>
             </div>`
         };
     })
@@ -247,7 +247,7 @@ function crearTarjeta() {
 // EVENTO CREAR TARJETA
 
 btnNuevo.addEventListener('click', () => {
-    if (nombre.value != '' && imagen.value != '' && precio.value != '' && stock.value != ''){
+    if (nombre.value != '' && imagen.value != '' && precio.value != '' && stock.value != '') {
         agregarProducto(nombre.value, imagen.value, precio.value, stock.value);
         crearTarjeta();
     } else {
@@ -268,28 +268,140 @@ if (display.innerHTML == '') {
 
 
 
-// VISTA PREVIA
 
-const vistaPrevia = document.getElementById('vistaPrevia');
 
-function borrar() {
-    let userView = document.querySelectorAll('.userView');
 
-    for (let x of userView) {
-        x.classList.toggle('dNone');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// LOGIN
+
+async function getDatabase() {
+    const response = await fetch('./js/database.json');
+    const database = await response.json();
+    console.log(database);
+    localStorage.setItem ('database', JSON.stringify(database));
+}
+
+getDatabase();
+
+const database = JSON.parse(localStorage.getItem('database'));
+
+
+const loggedA = document.querySelectorAll('.loggedA'),
+    loggedB = document.querySelectorAll('.loggedB'),
+    loggedBtns = document.querySelectorAll('.loggedBtns'),
+    iniciarSesion = document.getElementById('iniciarSesion'),
+    cerrarSesion = document.getElementById('cerrarSesion');
+
+
+function guardarIngreso(usuarioDB) {
+    const usuario = {
+        'email': usuarioDB.email,
+        'password': usuarioDB.password,
+        'authorized': usuarioDB.authorized
+    }
+    
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+}
+
+function borrarIngreso() {
+    localStorage.removeItem('usuario');
+}
+
+function recuperarUsuario() {
+    const usuarioEnStorage = JSON.parse(localStorage.getItem('usuario'));
+    return usuarioEnStorage;
+}
+
+
+function mostrar(array, clase) {
+    for (let x of array) {
+        x.classList.toggle(clase);
     }
 }
 
-function cambiarBoton() {
-    vistaPrevia.innerText === 'Vista previa' ? vistaPrevia.innerText = 'Volver' : vistaPrevia.innerText = 'Vista previa';
+function iniciado(usuario) {
+    if (usuario) {
+        mostrar(loggedB, 'dNone');
+    } else if (usuario.authorized === true) {
+        mostrar(loggedA, 'dNone');
+        mostrar(loggedB, 'dNone');
+        mostrar(loggedBtns, 'dNone');
+    }
 }
 
-vistaPrevia.addEventListener('click', () => {
-    borrar();
-    cambiarBoton();
-});
+function validarUsuario (usersDB, email, password) {
+    let usuarioGuardado = usersDB.find((userDB) => userDB.email == email);
+
+    if(typeof usuarioGuardado === 'undefined') {
+        return 'Usuario y/o contraseña incorrectos'
+    } else {
+        if (usuarioGuardado.password != password) {
+            return 'Usuario y/o contraseña incorrectos'
+        } else {
+            return usuarioGuardado;
+        }
+    }
+}
 
 
 
 
 
+
+iniciarSesion.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Ingresá',
+        html: `<input type="text" id="inputEmail" class="swal2-input" placeholder="Usuario o correo electrónico">
+        <input type="password" id="inputPassword" class="swal2-input" placeholder="Contraseña">`,
+        confirmButtonText: 'Ingresar',
+        focusConfirm: false,
+        preConfirm: () => {
+            const inputEmail = Swal.getPopup().querySelector('#inputEmail').value
+            const inputPassword = Swal.getPopup().querySelector('#inputPassword').value
+            if (!inputEmail || !inputPassword) {
+                Swal.showValidationMessage(`Todos los campos deben estar completos`)
+            } else {
+                let data = validarUsuario (database, inputEmail, inputPassword);
+                if (typeof data === 'string') {
+                    Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`)
+                } else {
+                    guardarIngreso(data);
+                    mostrar(loggedB, 'dNone');
+                    if (data.authorized === true) {
+                        mostrar(loggedA, 'dNone');
+                        mostrar(loggedB, 'dNone');
+                        mostrar(loggedBtns, 'dNone');
+                        }
+                }
+            }
+        }
+    })
+})
+
+
+cerrarSesion.addEventListener('click', () => {
+    borrarIngreso();
+
+})
+
+
+iniciado(recuperarUsuario());
