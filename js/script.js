@@ -386,11 +386,11 @@ iniciarSesion.addEventListener('click', (e) => {
                 } else {
                     guardarIngreso(data);
                     mostrar(loggedB, 'dNone');
-                    if (data.authorized === true) {
+                    if (data.authorized) {
                         mostrar(loggedA, 'dNone');
                         mostrar(loggedB, 'dNone');
                         mostrar(loggedBtns, 'dNone');
-                        }
+                    }
                 }
             }
         }
