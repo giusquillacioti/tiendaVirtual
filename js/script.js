@@ -322,6 +322,7 @@ function guardarIngreso(usuarioDB) {
 
 function borrarIngreso() {
     localStorage.removeItem('usuario');
+    location.reload();
 }
 
 function recuperarUsuario() {
@@ -337,12 +338,11 @@ function mostrar(array, clase) {
 }
 
 function iniciado(usuario) {
-    if (usuario) {
-        mostrar(loggedB, 'dNone');
-    } else if (usuario.authorized === true) {
+    if (usuario.authorized) {
         mostrar(loggedA, 'dNone');
-        mostrar(loggedB, 'dNone');
         mostrar(loggedBtns, 'dNone');
+    } else if (usuario) {
+        mostrar(loggedB, 'dNone');
     }
 }
 
@@ -385,17 +385,13 @@ iniciarSesion.addEventListener('click', (e) => {
                     Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`)
                 } else {
                     guardarIngreso(data);
-                    mostrar(loggedB, 'dNone');
-                    if (data.authorized) {
-                        mostrar(loggedA, 'dNone');
-                        mostrar(loggedB, 'dNone');
-                        mostrar(loggedBtns, 'dNone');
-                    }
+                    iniciado(data);
                 }
             }
         }
     })
 })
+
 
 
 cerrarSesion.addEventListener('click', () => {
