@@ -216,11 +216,29 @@ iframe {
     cursor: pointer;
 }
 
-.options a {
+a {
     padding: 5px;
     width: 120px;
+    text-decoration: none;
+    color: white;
 }
 
 .dNone {
     display: none;
+}
+
+.profileContainer {
+    display: flex;
+    margin: 40px 50px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: rgb(216, 184, 247);
+    padding: 15px;
+    width: 500px;
+}
+
+#authorizedProfiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
 }

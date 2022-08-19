@@ -171,39 +171,39 @@ function crearTarjeta() {
     let productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
     productosGuardados.forEach(producto => {
-        if (producto.stock == 0) {
+        if (parseInt(producto.stock) == 0) {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
                 <h4>SIN STOCK</h4>
-            <div class="cardBtns loggedBtns dNone">
+            <div class="cardBtns loggedBtns">
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
             </div>`
-        } else if (producto.stock <= 5) {
+        } else if (parseInt(producto.stock) <= 5) {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
                 <h4>¡Quedan ${producto.stock} disponibles!</h4>
-            <div class="cardBtns loggedBtns dNone">
+            <div class="cardBtns loggedBtns">
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            <button class="btn loggedBtns">Agregar al carrito</button>
+            <button class="btn loggedBtns dNone">Agregar al carrito</button>
             </div>`
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
                 <h4>$ ${producto.precio}</h4>
-            <div class="cardBtns loggedBtns dNone">
+            <div class="cardBtns loggedBtns">
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            <button class="btn loggedBtns">Agregar al carrito</button>
+            <button class="btn loggedBtns dNone">Agregar al carrito</button>
             </div>`
         };
     })
@@ -303,6 +303,16 @@ getDatabase();
 const database = JSON.parse(localStorage.getItem('database'));
 
 
+
+/* async function getDatabase() {
+    const response = await fetch('./js/database.json');
+    const database = await response.json();
+    localStorage.setItem ('database', JSON.stringify(database));s
+    return database;
+}
+
+const database = getDatabase(); */
+
 const loggedA = document.querySelectorAll('.loggedA'),
     loggedB = document.querySelectorAll('.loggedB'),
     loggedBtns = document.querySelectorAll('.loggedBtns'),
@@ -337,12 +347,16 @@ function mostrar(array, clase) {
     }
 }
 
+mostrar(loggedBtns, 'dNone');
+
 function iniciado(usuario) {
-    if (usuario.authorized) {
-        mostrar(loggedA, 'dNone');
-        mostrar(loggedBtns, 'dNone');
-    } else if (usuario) {
-        mostrar(loggedB, 'dNone');
+    if (usuario) {
+        if (usuario.authorized) {
+            mostrar(loggedA, 'dNone');
+            mostrar(loggedBtns, 'dNone');
+        } else {
+            mostrar(loggedB, 'dNone');
+        }
     }
 }
 
@@ -401,3 +415,11 @@ cerrarSesion.addEventListener('click', () => {
 
 
 iniciado(recuperarUsuario());
+
+
+
+// PERFIL
+
+/* const authorizedUsers = database.filter((el) => el.authorized);
+
+console.log(authorizedUsers); */
