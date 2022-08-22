@@ -31,7 +31,7 @@
 
             <div class="optionsContainer">
                 <div class="options loggedA loggedB dNone">
-                    <a href="./sections/miperfil.html">Mi perfi</a>
+                    <a id="btnPerfil">Mi perfil</a>
                     <a id="cerrarSesion">Cerrar sesión</a>
                 </div>
             </div>
@@ -40,67 +40,87 @@
 
     <main>
 
-        <section class="start loggedA dNone">
-
-            <p><strong>¡Bienvenido/a!</strong> Esta es tu tienda virtual. En ella podrás exhibir y vender de forma
+        <section class="profile">
+            
+            <section class="start loggedA dNone">
+                
+                <p><strong>¡Bienvenido/a!</strong> Esta es tu tienda virtual. En ella podrás exhibir y vender de forma
                 remota lo que tu emprendimiento tiene para ofrecer.
                 Ingresá el nombre de tu emprendimiento (este se mostrará como título de la página):</p>
 
-            <div>
-                <input type="text" id="inputTitulo" placeholder="Mi Tienda Virtual">
-                <input id="btnTitulo" class="startBtns" type="submit" value="Definir título">
-                <input id="btnResetTitulo" class="startBtns" type="button" value="Resetear título">
-            </div>
-
-        </section>
-
-        <h2 id="productosTitle">Productos</h2>
-
-        <section class="draftContainer loggedA dNone">
-
-            <div class="draft">
-                <h3>Nuevo Producto</h3>
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre">
-                <label for="imagen">Imagen</label>
-                <input type="url" name="imagen" id="imagen">
-                <label for="precio">Precio</label>
-                <input type="number" name="precio" id="precio">
-                <label for="stock">Cantidad disponible</label>
-                <input type="number" name="stock" id="stock">
-                <input id="btnNuevo" type="submit" value="Agregar nuevo producto">
-            </div>
-
-            <div class="tutorialContainer">
-                <div class="imgTutorial">
-                    <h4>¡Atención!</h4>
-                    <p>Nuestro sitio web trabaja con imágenes de <a href="https://www.google.com/intl/es/drive/"
-                            target="_blank">Google Drive</a>. Para poder exhibir las fotos de tus productos, seguí estos
-                        pasos:</p>
-                    <ol>
-                        <li>Subí la imagen del producto que desees publicar a tu cuenta de Google Drive.</li>
-                        <li>Asegurate de que el acceso general del archivo sea <strong>público</strong> (para cualquiera
-                            que tenga el vínculo), y copia el vínculo de la imagen.</li>
-                        <li>Cuando completes el formulario de producto, ingresá el <strong>código único</strong>
-                            (resaltado en la captura) en el campo <strong>Imagen</strong>.</li>
-                    </ol>
-                    <figure>
-                        <img src="./img/captura.jfif" alt="código único del vínculo de un archivo Drive" width="400">
-                    </figure>
-                    <p><strong>Aclaración:</strong> las imagenes se podrán apreciar mejor si son
-                        <strong>cuadradas</strong>.
-                    </p>
+                <div>
+                    <input type="text" id="inputTitulo" placeholder="Mi Tienda Virtual">
+                    <input id="btnTitulo" class="startBtns" type="submit" value="Definir título">
+                    <input id="btnResetTitulo" class="startBtns" type="button" value="Resetear título">
                 </div>
 
-                <!-- <iframe width="300" height="215" src="https://www.youtube-nocookie.com/embed/fYsqLs0e-_s"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe> -->
-            </div>
+            </section>
+            
+            <h2 class="pTitle">Productos</h2>
+
+            <section class="draftContainer loggedA dNone">
+
+                <div class="draft">
+                    <h3>Nuevo Producto</h3>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre" id="nombre">
+                    <label for="imagen">Imagen</label>
+                    <input type="url" name="imagen" id="imagen">
+                    <label for="precio">Precio</label>
+                    <input type="number" name="precio" id="precio">
+                    <label for="stock">Cantidad disponible</label>
+                    <input type="number" name="stock" id="stock">
+                    <input id="btnNuevo" type="submit" value="Agregar nuevo producto">
+                </div>
+
+                <div class="tutorialContainer">
+                    <div class="imgTutorial">
+                        <h4>¡Atención!</h4>
+                        <p>Nuestro sitio web trabaja con imágenes de <a href="https://www.google.com/intl/es/drive/"
+                            target="_blank">Google Drive</a>. Para poder exhibir las fotos de tus productos, seguí estos
+                            pasos:</p>
+                        <ol>
+                            <li>Subí la imagen del producto que desees publicar a tu cuenta de Google Drive.</li>
+                            <li>Asegurate de que el acceso general del archivo sea <strong>público</strong> (para cualquiera
+                                que tenga el vínculo), y copia el vínculo de la imagen.</li>
+                            <li>Cuando completes el formulario de producto, ingresá el <strong>código único</strong>
+                                (resaltado en la captura) en el campo <strong>Imagen</strong>.</li>
+                        </ol>
+                        <figure>
+                            <img src="./img/captura.jfif" alt="código único del vínculo de un archivo Drive" width="400">
+                        </figure>
+                        <p><strong>Aclaración:</strong> las imagenes se podrán apreciar mejor si son
+                            <strong>cuadradas</strong>.
+                        </p>
+                    </div>
+
+                    <!-- <iframe width="300" height="215" src="https://www.youtube-nocookie.com/embed/fYsqLs0e-_s"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe> -->
+                </div>
+
+            </section>
+
+            <section class="display"></section>            
 
         </section>
 
-        <section class="display"></section>
+        <section class="profile dNone">
+            
+            <section class="profileContainer">
+                <figure>
+                    <img src="../img/login.png" alt="perfil" width="200" height="200">
+                </figure>
+                <div id="profileInfo"></div>
+            </section>
+            
+            <section id="authorizedContainer">
+                <h3 class="pTitle">Perfiles de la empresa</h3>
+                <section id="authorizedProfiles"></section>
+            </section>
+
+        </section>
 
     </main>
 

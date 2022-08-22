@@ -322,6 +322,8 @@ const loggedA = document.querySelectorAll('.loggedA'),
 
 function guardarIngreso(usuarioDB) {
     const usuario = {
+        'firstName': usuarioDB.firstName,
+        'lastName': usuarioDB.lastName,
         'email': usuarioDB.email,
         'password': usuarioDB.password,
         'authorized': usuarioDB.authorized
@@ -410,7 +412,6 @@ iniciarSesion.addEventListener('click', (e) => {
 
 cerrarSesion.addEventListener('click', () => {
     borrarIngreso();
-
 })
 
 
@@ -418,8 +419,79 @@ iniciado(recuperarUsuario());
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // PERFIL
 
-/* const authorizedUsers = database.filter((el) => el.authorized);
+const authorizedUsers = database.filter((el) => el.authorized),
+    profileContainer = document.querySelector('profileContainer'),
+    authorizedContainer = document.getElementById('authorizedContainer'),
+    profileInfo = document.getElementById ('profileInfo'),
+    authorizedProfiles = document.getElementById('authorizedProfiles'),
+    usuario = JSON.parse(localStorage.getItem('usuario')),
+    btnPerfil = document.getElementById('btnPerfil'),
+    profile = document.querySelectorAll('.profile');
 
-console.log(authorizedUsers); */
+if (usuario){
+    profileInfo.innerHTML = `<h2>Datos del usuario</h2>
+        <h3>Nombre: ${usuario.firstName}</h3>
+        <h3>Apellido: ${usuario.lastName}</h3>
+        <h4>Correo electrónico: ${usuario.email}</h4>`;
+
+
+    if (usuario.authorized){
+        authorizedUsers.forEach(user => {
+            if (usuario.password == user.password) {
+                authorizedProfiles.innerHTML +=  `
+                <div class= authorizedProfilesBoxes>
+                    <figure>
+                        <img src="../img/login.png" alt="perfil" width="100" height="100">
+                    </figure>
+                    <h4>YO</h4>
+                    <h5>${user.email}</h5>
+                </div>`
+            } else {
+                authorizedProfiles.innerHTML +=  `
+                <div class= authorizedProfilesBoxes>
+                    <figure>
+                        <img src="../img/login.png" alt="perfil" width="100" height="100">
+                    </figure>
+                    <h4>${user.firstName} ${user.lastName}</h4>
+                    <h5>${user.email}</h5>
+                </div>`
+            }
+        });
+    } else {
+        authorizedContainer.classList.add('dNone')
+    }
+}
+
+
+btnPerfil.addEventListener('click', () => {    
+    mostrar(profile, 'dNone');
+
+    if (btnPerfil.innerText == 'Mi perfil') {
+        btnPerfil.innerText = 'Volver';
+    } else {
+        btnPerfil.innerText = 'Mi perfil';
+    }
+})
