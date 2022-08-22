@@ -304,14 +304,14 @@ async function getDatabase() {
 
 getDatabase();
 
-const database = JSON.parse(localStorage.getItem('database'));
+//const database = JSON.parse(localStorage.getItem('database'));
 
 
 
 /* async function getDatabase() {
     const response = await fetch('./js/database.json');
     const database = await response.json();
-    localStorage.setItem ('database', JSON.stringify(database));s
+    localStorage.setItem('database', JSON.stringify(database));
     return database;
 }
 
@@ -332,7 +332,7 @@ function guardarIngreso(usuarioDB) {
         'password': usuarioDB.password,
         'authorized': usuarioDB.authorized
     }
-    
+
     localStorage.setItem('usuario', JSON.stringify(usuario));
 }
 
@@ -366,10 +366,10 @@ function iniciado(usuario) {
     }
 }
 
-function validarUsuario (usersDB, email, password) {
+function validarUsuario(usersDB, email, password) {
     let usuarioGuardado = usersDB.find((userDB) => userDB.email == email);
-
-    if(typeof usuarioGuardado === 'undefined') {
+    
+    if (typeof usuarioGuardado === 'undefined') {
         return 'Usuario y/o contraseña incorrectos'
     } else {
         if (usuarioGuardado.password != password) {
@@ -387,6 +387,8 @@ function validarUsuario (usersDB, email, password) {
 
 iniciarSesion.addEventListener('click', () => {
 
+    const database = JSON.parse(localStorage.getItem('database'));
+
     Swal.fire({
         title: 'Ingresá',
         html: `<input type="text" id="inputEmail" class="swal2-input" placeholder="Usuario o correo electrónico">
@@ -399,7 +401,7 @@ iniciarSesion.addEventListener('click', () => {
             if (!inputEmail || !inputPassword) {
                 Swal.showValidationMessage(`Todos los campos deben estar completos`)
             } else {
-                let data = validarUsuario (database, inputEmail, inputPassword);
+                let data = validarUsuario(database, inputEmail, inputPassword);
                 if (typeof data === 'string') {
                     Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`)
                 } else {
@@ -446,26 +448,29 @@ iniciado(recuperarUsuario());
 
 // PERFIL
 
-const authorizedUsers = database.filter((el) => el.authorized),
-    profileContainer = document.querySelector('profileContainer'),
-    authorizedContainer = document.getElementById('authorizedContainer'),
-    profileInfo = document.getElementById ('profileInfo'),
+/* if (database != null) {
+    const authorizedUsers = database.filter(el => el.authorized);
+}
+
+
+const authorizedContainer = document.getElementById('authorizedContainer'),
+    profileInfo = document.getElementById('profileInfo'),
     authorizedProfiles = document.getElementById('authorizedProfiles'),
     usuario = JSON.parse(localStorage.getItem('usuario')),
     btnPerfil = document.getElementById('btnPerfil'),
     profile = document.querySelectorAll('.profile');
 
-if (usuario){
+if (usuario) {
     profileInfo.innerHTML = `<h2>Datos del usuario</h2>
         <h3>Nombre: ${usuario.firstName}</h3>
         <h3>Apellido: ${usuario.lastName}</h3>
         <h4>Correo electrónico: ${usuario.email}</h4>`;
 
 
-    if (usuario.authorized){
+    if (usuario.authorized) {
         authorizedUsers.forEach(user => {
             if (usuario.email == user.email) {
-                authorizedProfiles.innerHTML +=  `
+                authorizedProfiles.innerHTML += `
                 <div class= authorizedProfilesBoxes>
                     <figure>
                         <img src="../img/login.png" alt="perfil" width="100" height="100">
@@ -474,7 +479,7 @@ if (usuario){
                     <h5>${user.email}</h5>
                 </div>`
             } else {
-                authorizedProfiles.innerHTML +=  `
+                authorizedProfiles.innerHTML += `
                 <div class= authorizedProfilesBoxes>
                     <figure>
                         <img src="../img/login.png" alt="perfil" width="100" height="100">
@@ -490,7 +495,7 @@ if (usuario){
 }
 
 
-btnPerfil.addEventListener('click', () => {    
+btnPerfil.addEventListener('click', () => {
     mostrar(profile, 'dNone');
 
     if (btnPerfil.innerText == 'Mi perfil') {
@@ -498,4 +503,4 @@ btnPerfil.addEventListener('click', () => {
     } else {
         btnPerfil.innerText = 'Mi perfil';
     }
-})
+}) */
