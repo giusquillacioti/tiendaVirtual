@@ -1,6 +1,4 @@
 
-// TÍTULO
-
 const titulo = document.getElementById('titulo'),
     tituloPagina = document.getElementById('tituloPagina'),
     inputTitulo = document.getElementById('inputTitulo'),
@@ -12,7 +10,7 @@ function cambiarTitulo() {
         nuevoTituloPagina = `${inputTitulo.value} | Tienda Virtual`;
 
     if (nuevoTitulo == '') {
-        Swal.fire('Debes ingresar algún valor para poder cambiar el título de la tienda.')
+        Swal.fire('Debes ingresar algún valor para poder cambiar el título de la tienda.');
     } else {
         titulo.innerText = nuevoTitulo;
         tituloPagina.innerText = `${nuevoTituloPagina}`;
@@ -32,28 +30,12 @@ function resetearTitulo() {
     localStorage.removeItem('nuevoTituloPagina');
 }
 
-btnResetTitulo.addEventListener('click', resetearTitulo)
+btnResetTitulo.addEventListener('click', resetearTitulo);
 
 if (localStorage.getItem('nuevoTitulo') != null) {
     titulo.innerText = localStorage.getItem('nuevoTitulo');
     tituloPagina.innerText = localStorage.getItem('nuevoTituloPagina');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ----------- PRODUCTOS -----------
 
 const productos = JSON.parse(localStorage.getItem('productos')) || [],
     btnNuevo = document.getElementById('btnNuevo'),
@@ -62,9 +44,6 @@ const productos = JSON.parse(localStorage.getItem('productos')) || [],
     imagen = document.getElementById('imagen'),
     precio = document.getElementById('precio'),
     stock = document.getElementById('stock');
-
-
-// FUNCIÓN CONSTRUCTORA
 
 function Producto(nombre, imagen, precio, stock) {
     this.id = parseInt(Math.random() * 10000).toString();
@@ -75,8 +54,6 @@ function Producto(nombre, imagen, precio, stock) {
     this.fecha = new Date().toLocaleString();
 }
 
-// AGREGAR PRODUCTO
-
 function agregarProducto(nombre, imagen, precio, stock) {
     const producto = new Producto(nombre, imagen, precio, stock);
     productos.unshift(producto);
@@ -84,18 +61,14 @@ function agregarProducto(nombre, imagen, precio, stock) {
     localStorage.setItem('productos', JSON.stringify(productos));
 }
 
-// BORRAR PRODUCTO
-
 function borrarProducto(objectId) {
-    const productoIndex = productos.findIndex(producto => producto.id === objectId)
+    const productoIndex = productos.findIndex(producto => producto.id === objectId);
     productos.splice(productoIndex, 1);
     localStorage.setItem('productos', JSON.stringify(productos));
 }
 
-// MODIFICAR PRODUCTO
-
 function modificarProducto(objectId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock, nuevaFecha) {
-    const productoIndex = productos.findIndex(producto => producto.id === objectId)
+    const productoIndex = productos.findIndex(producto => producto.id === objectId);
     productos[productoIndex].nombre = nuevoNombre;
     productos[productoIndex].imagen = nuevaImagen;
     productos[productoIndex].precio = nuevoPrecio;
@@ -103,8 +76,6 @@ function modificarProducto(objectId, nuevoNombre, nuevaImagen, nuevoPrecio, nuev
     productos[productoIndex].fecha = nuevaFecha;
     localStorage.setItem('productos', JSON.stringify(productos));
 }
-
-//MODIFICAR TARJETA
 
 function inputsModificar(tarjetaId) {
     const tarjetadeProducto = document.getElementById(tarjetaId);
@@ -123,12 +94,10 @@ function inputsModificar(tarjetaId) {
         <div class="cardBtns">
             <button class="btn" id="btnConfirmarModificar">Aceptar</button>
             <button class="btn" id="btnCancelarModificar">Cancelar</button>
-        </div>`
+        </div>`;
 
     const btnConfirmarModificar = document.getElementById('btnConfirmarModificar');
     const btnCancelarModificar = document.getElementById('btnCancelarModificar');
-
-    // CONFIRMAR CAMBIOS
 
     btnConfirmarModificar.addEventListener('click', () => {
         const nuevoNombre = document.getElementById('nuevoNombre').value;
@@ -146,10 +115,8 @@ function inputsModificar(tarjetaId) {
             timer: 3000,
             icon: 'success',
             title: 'Los cambios han sido guardados.',
-        })
-    })
-
-    // CANCELAR CAMBIOS
+        });
+    });
 
     btnCancelarModificar.addEventListener('click', () => {
         Swal.fire({
@@ -160,12 +127,10 @@ function inputsModificar(tarjetaId) {
         }).then((result) => {
             if (result.isConfirmed) {
                 crearTarjeta();
-            };
-        })
-    })
+            }
+        });
+    });
 }
-
-//CREAR TARJETA
 
 function crearTarjeta() {
     display.innerHTML = '';
@@ -185,7 +150,7 @@ function crearTarjeta() {
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            </div>`
+            </div>`;
         } else if (parseInt(producto.stock) <= 5) {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
@@ -197,7 +162,7 @@ function crearTarjeta() {
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
             <button class="btn loggedBtns dNone">Agregar al carrito</button>
-            </div>`
+            </div>`;
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
@@ -208,11 +173,9 @@ function crearTarjeta() {
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
             <button class="btn loggedBtns dNone">Agregar al carrito</button>
-            </div>`
-        };
-    })
-
-    //BORRAR PRODUCTO
+            </div>`;
+        }
+    });
 
     const btnsEliminar = document.getElementsByClassName('btnEliminar');
     for (const btn of btnsEliminar) {
@@ -232,30 +195,26 @@ function crearTarjeta() {
                     });
                     borrarProducto(e.target.parentNode.parentNode.id);
                     crearTarjeta();
-                };
-            })
-        })
+                }
+            });
+        });
     }
-
-    //MODIFICAR PRODUCTO
 
     const btnsModificar = document.getElementsByClassName('btnModificar');
     for (const btn of btnsModificar) {
         btn.addEventListener('click', (e) => {
             inputsModificar(e.target.parentNode.parentNode.id);
-        })
+        });
     }
 
 }
-
-// EVENTO CREAR TARJETA
 
 btnNuevo.addEventListener('click', () => {
     if (nombre.value != '' && imagen.value != '' && precio.value != '' && stock.value != '') {
         agregarProducto(nombre.value, imagen.value, precio.value, stock.value);
         crearTarjeta();
     } else {
-        Swal.fire('Todos los campos deben ser completados para crear un nuevo producto.')
+        Swal.fire('Todos los campos deben ser completados para crear un nuevo producto.');
     }
 });
 
@@ -268,50 +227,20 @@ if (display.innerHTML == '') {
     display.innerHTML = '<h3 class="noProducts">En este momento no hay productos cargados a la tienda.</h3>';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// LOGIN
-
 async function getDatabase() {
     const response = await fetch('./js/database.json');
     const database = await response.json();
     console.log(database);
-    localStorage.setItem ('database', JSON.stringify(database));
+    localStorage.setItem('database', JSON.stringify(database));
 }
 
 getDatabase();
-
-
 
 const loggedA = document.querySelectorAll('.loggedA'),
     loggedB = document.querySelectorAll('.loggedB'),
     loggedBtns = document.querySelectorAll('.loggedBtns'),
     iniciarSesion = document.getElementById('iniciarSesion'),
     cerrarSesion = document.getElementById('cerrarSesion');
-
 
 function guardarIngreso(usuarioDB) {
     const usuario = {
@@ -320,7 +249,7 @@ function guardarIngreso(usuarioDB) {
         'email': usuarioDB.email,
         'password': usuarioDB.password,
         'authorized': usuarioDB.authorized
-    }
+    };
 
     localStorage.setItem('usuario', JSON.stringify(usuario));
 }
@@ -334,7 +263,6 @@ function recuperarUsuario() {
     const usuarioEnStorage = JSON.parse(localStorage.getItem('usuario'));
     return usuarioEnStorage;
 }
-
 
 function mostrar(array, clase) {
     for (let x of array) {
@@ -357,22 +285,17 @@ function iniciado(usuario) {
 
 function validarUsuario(usersDB, email, password) {
     let usuarioGuardado = usersDB.find((userDB) => userDB.email == email);
-    
+
     if (typeof usuarioGuardado === 'undefined') {
-        return 'Usuario y/o contraseña incorrectos'
+        return 'Usuario y/o contraseña incorrectos';
     } else {
         if (usuarioGuardado.password != password) {
-            return 'Usuario y/o contraseña incorrectos'
+            return 'Usuario y/o contraseña incorrectos';
         } else {
             return usuarioGuardado;
         }
     }
 }
-
-
-
-
-
 
 iniciarSesion.addEventListener('click', () => {
 
@@ -385,14 +308,14 @@ iniciarSesion.addEventListener('click', () => {
         confirmButtonText: 'Ingresar',
         focusConfirm: false,
         preConfirm: () => {
-            const inputEmail = Swal.getPopup().querySelector('#inputEmail').value
-            const inputPassword = Swal.getPopup().querySelector('#inputPassword').value
+            const inputEmail = Swal.getPopup().querySelector('#inputEmail').value;
+            const inputPassword = Swal.getPopup().querySelector('#inputPassword').value;
             if (!inputEmail || !inputPassword) {
-                Swal.showValidationMessage(`Todos los campos deben estar completos`)
+                Swal.showValidationMessage(`Todos los campos deben estar completos`);
             } else {
                 let data = validarUsuario(database, inputEmail, inputPassword);
                 if (typeof data === 'string') {
-                    Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`)
+                    Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`);
                 } else {
                     guardarIngreso(data);
                     iniciado(data);
@@ -400,43 +323,14 @@ iniciarSesion.addEventListener('click', () => {
                 }
             }
         }
-    })
-})
-
-
+    });
+});
 
 cerrarSesion.addEventListener('click', () => {
     borrarIngreso();
-})
-
+});
 
 iniciado(recuperarUsuario());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// PERFIL
-
 
 const database = JSON.parse(localStorage.getItem('database')),
     usuario = JSON.parse(localStorage.getItem('usuario')),
@@ -453,7 +347,6 @@ if (usuario) {
         <h3>Apellido: ${usuario.lastName}</h3>
         <h4>Correo electrónico: ${usuario.email}</h4>`;
 
-
     if (usuario.authorized) {
         authorizedUsers.forEach(user => {
             if (usuario.email == user.email) {
@@ -464,7 +357,7 @@ if (usuario) {
                     </figure>
                     <h4>YO</h4>
                     <h5>${user.email}</h5>
-                </div>`
+                </div>`;
             } else {
                 authorizedProfiles.innerHTML += `
                 <div class= authorizedProfilesBoxes>
@@ -473,14 +366,13 @@ if (usuario) {
                     </figure>
                     <h4>${user.firstName} ${user.lastName}</h4>
                     <h5>${user.email}</h5>
-                </div>`
+                </div>`;
             }
         });
     } else {
-        authorizedContainer.classList.add('dNone')
+        authorizedContainer.classList.add('dNone');
     }
 }
-
 
 btnPerfil.addEventListener('click', () => {
     mostrar(profile, 'dNone');
@@ -490,4 +382,4 @@ btnPerfil.addEventListener('click', () => {
     } else {
         btnPerfil.innerText = 'Mi perfil';
     }
-}) 
+});

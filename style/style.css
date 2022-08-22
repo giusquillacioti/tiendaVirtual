@@ -252,11 +252,11 @@ a {
     font-family: 'Quicksand', sans-serif;
 }
 
-#profileInfo h3{
+#profileInfo h3 {
     font-size: 20px;
 }
 
-.authorizedProfilesBoxes{
+.authorizedProfilesBoxes {
     border: 2px solid black;
     border-radius: 20px;
     background-color: rgb(216, 184, 247);
