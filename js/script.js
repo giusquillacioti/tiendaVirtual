@@ -72,6 +72,7 @@ function Producto(nombre, imagen, precio, stock) {
     this.imagen = imagen;
     this.precio = precio;
     this.stock = stock;
+    this.fecha = new Date().toLocaleString();
 }
 
 // AGREGAR PRODUCTO
@@ -93,12 +94,13 @@ function borrarProducto(objectId) {
 
 // MODIFICAR PRODUCTO
 
-function modificarProducto(objectId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock) {
+function modificarProducto(objectId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock, nuevaFecha) {
     const productoIndex = productos.findIndex(producto => producto.id === objectId)
     productos[productoIndex].nombre = nuevoNombre;
     productos[productoIndex].imagen = nuevaImagen;
     productos[productoIndex].precio = nuevoPrecio;
     productos[productoIndex].stock = nuevoStock;
+    productos[productoIndex].fecha = nuevaFecha;
     localStorage.setItem('productos', JSON.stringify(productos));
 }
 
@@ -108,6 +110,7 @@ function inputsModificar(tarjetaId) {
     const tarjetadeProducto = document.getElementById(tarjetaId);
     const productoEncontrado = productos.find(producto => producto.id === tarjetaId);
     tarjetadeProducto.innerHTML = `
+        <h5>Última modificación: ${productoEncontrado.fecha}</h5>
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" id="nuevoNombre" value="${productoEncontrado.nombre}">
         <label for="imagen">Imagen</label>
@@ -132,7 +135,8 @@ function inputsModificar(tarjetaId) {
         const nuevaImagen = document.getElementById('nuevaImagen').value;
         const nuevoPrecio = document.getElementById('nuevoPrecio').value;
         const nuevoStock = document.getElementById('nuevoStock').value;
-        modificarProducto(tarjetaId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock);
+        const nuevaFecha = new Date().toLocaleString();
+        modificarProducto(tarjetaId, nuevoNombre, nuevaImagen, nuevoPrecio, nuevoStock, nuevaFecha);
         crearTarjeta();
 
         Swal.fire({
@@ -460,7 +464,7 @@ if (usuario){
 
     if (usuario.authorized){
         authorizedUsers.forEach(user => {
-            if (usuario.password == user.password) {
+            if (usuario.email == user.email) {
                 authorizedProfiles.innerHTML +=  `
                 <div class= authorizedProfilesBoxes>
                     <figure>
