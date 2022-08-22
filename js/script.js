@@ -381,8 +381,7 @@ function validarUsuario (usersDB, email, password) {
 
 
 
-iniciarSesion.addEventListener('click', (e) => {
-    e.preventDefault();
+iniciarSesion.addEventListener('click', () => {
 
     Swal.fire({
         title: 'Ingresá',
@@ -402,6 +401,7 @@ iniciarSesion.addEventListener('click', (e) => {
                 } else {
                     guardarIngreso(data);
                     iniciado(data);
+                    location.reload();
                 }
             }
         }
