@@ -304,18 +304,7 @@ async function getDatabase() {
 
 getDatabase();
 
-//const database = JSON.parse(localStorage.getItem('database'));
 
-
-
-/* async function getDatabase() {
-    const response = await fetch('./js/database.json');
-    const database = await response.json();
-    localStorage.setItem('database', JSON.stringify(database));
-    return database;
-}
-
-const database = getDatabase(); */
 
 const loggedA = document.querySelectorAll('.loggedA'),
     loggedB = document.querySelectorAll('.loggedB'),
@@ -448,15 +437,13 @@ iniciado(recuperarUsuario());
 
 // PERFIL
 
-/* if (database != null) {
-    const authorizedUsers = database.filter(el => el.authorized);
-}
 
-
-const authorizedContainer = document.getElementById('authorizedContainer'),
+const database = JSON.parse(localStorage.getItem('database')),
+    usuario = JSON.parse(localStorage.getItem('usuario')),
+    authorizedUsers = database.filter(el => el.authorized),
+    authorizedContainer = document.getElementById('authorizedContainer'),
     profileInfo = document.getElementById('profileInfo'),
     authorizedProfiles = document.getElementById('authorizedProfiles'),
-    usuario = JSON.parse(localStorage.getItem('usuario')),
     btnPerfil = document.getElementById('btnPerfil'),
     profile = document.querySelectorAll('.profile');
 
@@ -503,4 +490,4 @@ btnPerfil.addEventListener('click', () => {
     } else {
         btnPerfil.innerText = 'Mi perfil';
     }
-}) */
+}) 
