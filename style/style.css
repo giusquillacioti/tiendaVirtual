@@ -58,10 +58,6 @@ h1 {
     padding: 5px 0;
 }
 
-.start .startBtns {
-    width: 100px;
-}
-
 h2 {
     font-family: 'Quicksand', sans-serif;
 }
@@ -166,10 +162,6 @@ iframe {
     justify-content: space-evenly;
 }
 
-.btn {
-    padding: 5px;
-}
-
 .noProducts {
     margin: 30px;
 }
@@ -183,7 +175,7 @@ iframe {
     list-style-type: none;
     font-family: 'Quicksand', sans-serif;
     right: 0px;
-    width: 120px;
+    min-width: 120px;
 }
 
 .loginContainer {
@@ -221,6 +213,7 @@ a {
     width: 120px;
     text-decoration: none;
     color: white;
+    cursor: pointer;
 }
 
 .dNone {
@@ -268,4 +261,40 @@ a {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.registroContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 15px;
+    font-family: 'Quicksand', sans-serif;
+    justify-content: space-evenly;
+    margin: 30px 0;
+    background-color: rgb(216, 184, 247);
+}
+
+#regProblem {
+    color: rgb(122, 0, 0);
+    text-align: center;
+}
+
+button, input[type=submit], input[type=button] {
+    align-self: center;
+    background-color: rgb(165, 88, 238);
+    border: 0;
+    border-radius: 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    padding: 8px 15px;
+    max-width: 200px;
 }

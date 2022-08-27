@@ -34,11 +34,12 @@
                     <a id="btnPerfil">Mi perfil</a>
                     <a id="cerrarSesion">Cerrar sesión</a>
                 </div>
+                <a id="registrar" class="loggedA loggedB">Registrarme</a>
             </div>
         </div>
     </header>
 
-    <main>
+    <main class="registro">
 
         <section class="profile">
 
@@ -50,8 +51,8 @@
 
                 <div>
                     <input type="text" id="inputTitulo" placeholder="Mi Tienda Virtual">
-                    <input id="btnTitulo" class="startBtns" type="submit" value="Definir título">
-                    <input id="btnResetTitulo" class="startBtns" type="button" value="Resetear título">
+                    <input id="btnTitulo" type="submit" value="Definir título">
+                    <input id="btnResetTitulo" type="button" value="Resetear título">
                 </div>
 
             </section>
@@ -126,6 +127,29 @@
         </section>
 
     </main>
+
+    <section class="registro dNone">
+        <section class="registroContainer">
+
+            <h2 class="pTitle">Crear una cuenta</h2>
+            
+            <div class="registerForm">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombreReg">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" id="apellidoReg">
+                <label for="email">Correo electrónico</label>
+                <input type="email" name="email" id="emailReg">
+                <label for="contraseña">Contraseña <em>(debe contener al menos 6 caracteres)</em></label>
+                <input type="password" name="contraseña" id="contrasenaReg">
+                <label for="contraseñaCheck">Confirmar contraseña</label>
+                <input type="password" name="contraseñaCheck" id="contrasenaCheckReg">
+                <input id="btnCrearCuenta" type="submit" value="Registrarme">
+                <div id="regProblem"></div>
+            </div>
+        
+        </section>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.all.min.js"></script>
     <script src="./js/script.js"></script>
