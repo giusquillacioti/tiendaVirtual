@@ -227,47 +227,6 @@ if (display.innerHTML == '') {
     display.innerHTML = '<h3 class="noProducts">En este momento no hay productos cargados a la tienda.</h3>';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// REGISTRO Y LOGIN
-
-
-
-const registrar = document.getElementById('registrar'),
-    registro = document.querySelectorAll('.registro'),
-    // INPUTS REGISTRO
-    nombreReg = document.getElementById('nombreReg'),
-    apellidoReg = document.getElementById('apellidoReg'),
-    emailReg = document.getElementById('emailReg'),
-    contrasenaReg = document.getElementById('contrasenaReg'),
-    contrasenaCheckReg = document.getElementById('contrasenaCheckReg'),
-    btnCrearCuenta = document.getElementById('btnCrearCuenta'),
-    regProblem = document.getElementById('regProblem'),
-    fullDB = JSON.parse(localStorage.getItem('fullDB')) || [],
-    registrados = JSON.parse(localStorage.getItem('registrados')) || [];
-
-
-
-
-// TRAE EL ARCHIVO JSON
-
 async function getDatabase() {
     const response = await fetch('./js/database.json');
     const database = await response.json();
@@ -277,10 +236,16 @@ async function getDatabase() {
 
 getDatabase();
 
-
-
-
-
+const registrar = document.getElementById('registrar'),
+    registro = document.querySelectorAll('.registro'),
+    nombreReg = document.getElementById('nombreReg'),
+    apellidoReg = document.getElementById('apellidoReg'),
+    emailReg = document.getElementById('emailReg'),
+    contrasenaReg = document.getElementById('contrasenaReg'),
+    contrasenaCheckReg = document.getElementById('contrasenaCheckReg'),
+    btnCrearCuenta = document.getElementById('btnCrearCuenta'),
+    regProblem = document.getElementById('regProblem'),
+    registrados = JSON.parse(localStorage.getItem('registrados')) || [];
 
 registrar.addEventListener('click', () => {
     mostrar(registro, 'dNone');
@@ -311,23 +276,10 @@ function agregarCuenta(nombre, apellido, email, contrasena) {
     return cuenta;
 };
 
-
 function validarEmail(email) {
     const validacion = /\S+@\S+\.\S+/;
     return validacion.test(email);
 };
-
-function getFullDatabase() {
-
-    const fullDB = (JSON.parse(localStorage.getItem('database'))).concat(registrados);
-    localStorage.setItem('fullDB', JSON.stringify(fullDB));
-
-    return fullDB;
-}
-
-getFullDatabase();
-
-
 
 btnCrearCuenta.addEventListener('click', () => {
 
@@ -340,7 +292,6 @@ btnCrearCuenta.addEventListener('click', () => {
                 if (contrasenaReg.value === contrasenaCheckReg.value) {
 
                     agregarCuenta(nombreReg.value, apellidoReg.value, emailReg.value, contrasenaReg.value);
-                    getFullDatabase();
                     regProblem.innerHTML = '';
 
                     Swal.fire({
@@ -372,26 +323,6 @@ btnCrearCuenta.addEventListener('click', () => {
         regProblem.innerHTML = `<h5>* Todos los campos deben ser completados para poder registrarse.</h5>`;
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const loggedA = document.querySelectorAll('.loggedA'),
     loggedB = document.querySelectorAll('.loggedB'),
@@ -454,12 +385,9 @@ function validarUsuario(usersDB, email, password) {
     }
 }
 
-
-
-
 iniciarSesion.addEventListener('click', () => {
 
-    const fullDB = JSON.parse(localStorage.getItem('fullDB'));
+    const database = JSON.parse(localStorage.getItem('database'));
 
     Swal.fire({
         title: 'Ingresá',
@@ -473,9 +401,16 @@ iniciarSesion.addEventListener('click', () => {
             if (!inputEmail || !inputPassword) {
                 Swal.showValidationMessage(`Todos los campos deben estar completos`);
             } else {
-                let data = validarUsuario(fullDB, inputEmail, inputPassword);
+                let data = validarUsuario(database, inputEmail, inputPassword);
                 if (typeof data === 'string') {
-                    Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`);
+                    let data = validarUsuario(registrados, inputEmail, inputPassword);
+                    if (typeof data === 'string') {
+                        Swal.showValidationMessage(`Usuario y/o contraseña incorrectos`);
+                    } else {
+                        guardarIngreso(data);
+                        iniciado(data);
+                        location.reload();
+                    }
                 } else {
                     guardarIngreso(data);
                     iniciado(data);
@@ -491,26 +426,6 @@ cerrarSesion.addEventListener('click', () => {
 });
 
 iniciado(recuperarUsuario());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// PERFIL
-
 
 const database = JSON.parse(localStorage.getItem('database')),
     usuario = JSON.parse(localStorage.getItem('usuario')),
@@ -563,13 +478,3 @@ btnPerfil.addEventListener('click', () => {
         btnPerfil.innerText = 'Mi perfil';
     }
 });
-
-
-
-
-
-
-
-
-
-
