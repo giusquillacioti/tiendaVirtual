@@ -515,6 +515,15 @@ function agregarAlCarrito(objectId) {
                     prod.cantidad++;
                     prod.precioTotal = prod.precio * prod.cantidad;
                     localStorage.setItem('carrito', JSON.stringify(carrito));
+
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        title: `Se agregó ${prod.nombre} al carrito.`,
+                    });
                 } else {
                     Swal.fire({
                         toast: true,
@@ -531,6 +540,15 @@ function agregarAlCarrito(objectId) {
         const producto = productos.find(producto => producto.id === objectId);
         carrito.push(producto);
         localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            icon: 'success',
+            title: `Se agregó ${producto.nombre} al carrito.`,
+        });
     }
     actualizarCarrito();
 }
