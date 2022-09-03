@@ -154,6 +154,7 @@ iframe {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
+    margin-bottom: 50px;
 }
 
 .cardBtns {
@@ -288,7 +289,9 @@ a {
     text-align: center;
 }
 
-button, input[type=submit], input[type=button] {
+button,
+input[type=submit],
+input[type=button] {
     align-self: center;
     background-color: rgb(165, 88, 238);
     border: 0;
@@ -297,4 +300,278 @@ button, input[type=submit], input[type=button] {
     font-weight: 600;
     padding: 8px 15px;
     max-width: 200px;
+}
+
+.carritoStyle {
+    background-color: rgb(208, 167, 247);
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    width: 300px;
+    min-height: 50px;
+    justify-content: center;
+}
+
+.cartImg {
+    background-color: rgb(165, 88, 238);
+    border-radius: 50px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#carritoLength {
+    color: white;
+    margin-top: 18px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.carritoBtn {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.productoEnCarrito {
+    display: flex;
+    padding: 15px;
+    justify-content: space-evenly;
+    border-bottom: 1px solid darkgray;
+    border-radius: 20px;
+}
+
+.productoEnCarrito--info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 10px;
+    width: 100px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.productoEnCarrito--total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.productoEnCarrito--eliminar {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+abbr {
+    text-decoration: none;
+}
+
+.noCarrito {
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.modal {
+    position: fixed;
+    top: -100vh;
+    left: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.modal-btn{
+    width: 70px;
+}
+
+.content-modal {
+    width: 100%;
+    max-width: 500px;
+    position: fixed;
+    left: 50%;
+    top: -100vh;
+    transition: top 0.35s ease;
+    margin-left: -250px;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    border-radius: 30px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 30px 30px 0 0;
+}
+
+.modal-header h3 {
+    margin-left: 30px;
+}
+
+.close-modal {
+    width: 10px;
+    margin-right: 15px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.modal-body {
+    min-height: 300px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.modal-precio {
+    height: 40px;
+    background-color: rgb(236, 217, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-footer {
+    height: 60px;
+    background-color: rgb(236, 217, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 0 0 30px 30px;
+}
+
+.modal-footer a {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    background-color: rgb(165, 88, 238);
+
+}
+
+.modal:target {
+    opacity: 1;
+    top: 0;
+}
+
+.modal:target .content-modal {
+    top: 50px;
+    transition: top 0.35s ease;
+}
+
+.compraContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.compraForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-family: 'Quicksand', sans-serif;
+    padding: 20px;
+    background-color: rgb(216, 184, 247);
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    margin: 30px 0 15px;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+#datosUsuarioCompra {
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+    justify-content: space-evenly;
+}
+
+.direccion{
+    display: flex;
+    justify-content: space-between;
+}
+
+#compraDirec {
+    width: 280px;
+}
+
+#compraAltura {
+    width: 100px;
+}
+
+.compraBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.compraBtns button {
+    font-size: 18px;
+}
+
+.cancelarCompra {
+    color: rgb(165, 88, 238);
+    align-self: center;
+    text-align: center;
+    margin: 10px 0 30px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+}
+
+.compraInfo {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+#carritoCompra {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(216, 184, 247);
+    width: 350px;
+    height: 400px;
+    text-align: center;
+    margin: 30px 0 15px;
+    border: 2px solid black;
+    border-radius: 20px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(216, 184, 247);
+    border-radius: 20px;
+    margin-block: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(165, 88, 238);
+    border-radius: 20px;
+}
+
+body::-webkit-scrollbar-track {
+    border-radius: 0;
+    margin-block: 0;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 0;
+}
+
+#compraProblem {
+    color: rgb(122, 0, 0);
 }

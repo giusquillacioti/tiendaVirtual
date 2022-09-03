@@ -49,8 +49,10 @@ function Producto(nombre, imagen, precio, stock) {
     this.id = parseInt(Math.random() * 10000).toString();
     this.nombre = nombre;
     this.imagen = imagen;
-    this.precio = precio;
-    this.stock = stock;
+    this.precio = parseInt(precio);
+    this.stock = parseInt(stock);
+    this.cantidad = 1;
+    this.precioTotal = parseInt(precio);
     this.fecha = new Date().toLocaleString();
 }
 
@@ -140,7 +142,7 @@ function crearTarjeta() {
     let productosGuardados = JSON.parse(localStorage.getItem('productos'));
 
     productosGuardados.forEach(producto => {
-        if (parseInt(producto.stock) == 0) {
+        if (producto.stock == 0) {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
@@ -151,7 +153,19 @@ function crearTarjeta() {
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
             </div>`;
-        } else if (parseInt(producto.stock) <= 5) {
+        } else if (producto.stock == 1) {
+            display.innerHTML += `<div class="card" id="${producto.id}">
+                <h3>${producto.nombre}</h3>
+                <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
+                <h4>$ ${producto.precio}</h4>
+                <h4>¡Último disponible!</h4>
+            <div class="cardBtns loggedBtns">
+                <button class="btn btnModificar">Modificar</button>
+                <button class="btn btnEliminar">Eliminar</button>
+            </div>
+            <button class="btn btnAgregarCarrito loggedBtns dNone">Agregar al carrito</button>
+            </div>`;
+        } else if (producto.stock <= 5) {
             display.innerHTML += `<div class="card" id="${producto.id}">
                 <h3>${producto.nombre}</h3>
                 <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="200" height="200">
@@ -161,7 +175,7 @@ function crearTarjeta() {
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            <button class="btn loggedBtns dNone">Agregar al carrito</button>
+            <button class="btn btnAgregarCarrito loggedBtns dNone">Agregar al carrito</button>
             </div>`;
         } else {
             display.innerHTML += `<div class="card" id="${producto.id}">
@@ -172,7 +186,7 @@ function crearTarjeta() {
                 <button class="btn btnModificar">Modificar</button>
                 <button class="btn btnEliminar">Eliminar</button>
             </div>
-            <button class="btn loggedBtns dNone">Agregar al carrito</button>
+            <button class="btn btnAgregarCarrito loggedBtns dNone">Agregar al carrito</button>
             </div>`;
         }
     });
@@ -230,7 +244,7 @@ if (display.innerHTML == '') {
 async function getDatabase() {
     const response = await fetch('./js/database.json');
     const database = await response.json();
-    console.log(database);
+    /* console.log(database); */
     localStorage.setItem('database', JSON.stringify(database));
 }
 
@@ -267,7 +281,6 @@ function Cuenta(nombre, apellido, email, contrasena) {
 
 function agregarCuenta(nombre, apellido, email, contrasena) {
     const cuenta = new Cuenta(nombre, apellido, email, contrasena);
-    console.log(cuenta);
 
     registrados.push(cuenta);
 
@@ -478,3 +491,204 @@ btnPerfil.addEventListener('click', () => {
         btnPerfil.innerText = 'Mi perfil';
     }
 });
+
+
+// --------------------------------- CARRITO ---------------------------------
+
+
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [],
+    carritoContainer = document.getElementById('carritoContainer'),
+    btnAgregarCarrito = document.getElementsByClassName('btnAgregarCarrito'),
+    carritoBtn = document.querySelector('.carritoBtn'),
+    btnVaciarCarrito = document.getElementById('btnVaciarCarrito'),
+    btnModal = document.getElementById('btnModal'),
+    carritoLength = document.getElementById('carritoLength'),
+    precioTotal = document.getElementById('precioTotal');
+
+function agregarAlCarrito(objectId) {
+    const agregado = carrito.some(producto => producto.id === objectId);
+
+    if (agregado) {
+        const prod = carrito.map(prod => {
+            if (prod.id === objectId) {
+                if (prod.cantidad < prod.stock) {
+                    prod.cantidad++;
+                    prod.precioTotal = prod.precio * prod.cantidad;
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                } else {
+                    Swal.fire({
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'error',
+                        title: '¡Lo sentimos! \nNo hay suficiente stock de este producto.',
+                    });
+                }
+            }
+        })
+    } else {
+        const producto = productos.find(producto => producto.id === objectId);
+        carrito.push(producto);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+    actualizarCarrito();
+}
+
+for (const btn of btnAgregarCarrito) {
+    btn.addEventListener('click', (e) => {
+        agregarAlCarrito(e.target.parentNode.id);
+    })
+}
+
+function eliminarDelCarrito(objectId) {
+    const productoIndex = carrito.findIndex(producto => producto.id === objectId);
+    carrito.splice(productoIndex, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+carritoLength.innerText = `${carrito.length}`;
+
+function actualizarCarrito() {
+    carritoContainer.innerHTML = '';
+
+    carrito.forEach(producto => {
+
+        carritoContainer.innerHTML += `<div class="productoEnCarrito" id="${producto.id}">
+        <figure>
+            <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="80" height="80">
+        </figure>
+        <div class="productoEnCarrito--info">
+            <h4>${producto.nombre}</h4>
+            <h5>$ ${producto.precio}</h5>
+            <h5>Cantidad: ${producto.cantidad}</h5>
+        </div>
+        <div class="productoEnCarrito--total">
+            <h4>$ ${producto.precioTotal}</h4>
+        </div>
+        <div class="productoEnCarrito--eliminar">
+        <button class="btnEliminarCarrito"><abbr title="Eliminar del carrito">X</abbr></button>
+        </div>
+        </div>`;
+    });
+
+    carritoLength.innerText = `${carrito.length}`;
+
+    precioTotal.innerText = `Precio total: $ ${carrito.reduce((previousValue, producto) => previousValue + parseInt(producto.precioTotal), 0)}`;
+
+    const btnEliminarCarrito = document.querySelectorAll('.btnEliminarCarrito');
+    for (const btn of btnEliminarCarrito) {
+        btn.addEventListener('click', (e) => {
+            eliminarDelCarrito(e.target.parentNode.parentNode.parentNode.id);
+            actualizarCarrito();
+        })
+    }
+}
+
+function vaciarCarrito() {
+    carrito.length = 0;
+    localStorage.removeItem('carrito');
+}
+
+btnVaciarCarrito.addEventListener('click', () => {
+    vaciarCarrito();
+    actualizarCarrito();
+    carritoContainer.innerHTML = `<h4 class="noCarrito">En este momento no hay productos agregados a tu carrito.</h4>`;
+})
+
+btnModal.addEventListener('click', () => {
+    actualizarCarrito();
+
+    if (carritoContainer.innerHTML == '') {
+        carritoContainer.innerHTML = `<h4 class="noCarrito">En este momento no hay productos agregados a tu carrito.</h4>`;
+    }
+});
+
+const btnComprar = document.getElementById('btnComprar'),
+    compra = document.querySelectorAll('.compra'),
+    datosUsuarioCompra = document.getElementById('datosUsuarioCompra'),
+    btnConfirmarCompra = document.getElementById('btnConfirmarCompra'),
+    carritoCompra = document.getElementById('carritoCompra'),
+    compraDirec = document.getElementById('compraDirec'),
+    compraAltura = document.getElementById('compraAltura'),
+    compraCP = document.getElementById('compraCP'),
+    compraProblem = document.getElementById('compraProblem');
+
+function rellenarDatos() {
+    if (usuario) {
+        datosUsuarioCompra.innerHTML = `<label for="compraNombre">Nombre completo</label>
+        <input type="text" name="compraNombre" id="compraNombre" value="${usuario.firstName} ${usuario.lastName}">
+        <label for="compraEmail">Dirección de correo electrónico</label>
+        <input type="email" name="compraEmail" id="compraEmail" value="${usuario.email}">`
+    } else {
+        datosUsuarioCompra.innerHTML = `<label for="compraNombre">Nombre completo</label>
+        <input type="text" name="compraNombre" id="compraNombre">
+        <label for="compraEmail">Dirección de correo electrónico</label>
+        <input type="email" name="compraEmail" id="compraEmail">`
+    }
+}
+
+btnComprar.addEventListener('click', () => {
+
+    if (carrito.length === 0) {
+        Swal.fire('Debes seleccionar al menos un producto para poder realizar tu compra.');
+    } else {
+        mostrar(compra, 'dNone');
+        rellenarDatos();
+
+        carrito.forEach(producto => {
+            carritoCompra.innerHTML += `<div class="productoEnCarrito">
+            <figure>
+            <img src="http://drive.google.com/uc?export=view&id=${producto.imagen}" alt="${producto.nombre}" width="80" height="80">
+            </figure>
+            <div class="productoEnCarrito--info">
+            <h4>${producto.nombre}</h4>
+            <h5>$ ${producto.precio}</h5>
+            <h5>Cantidad: ${producto.cantidad}</h5>
+            </div>
+            <div class="productoEnCarrito--total">
+            <h4>$ ${producto.precio}</h4>
+            </div>
+            </div>`;
+        })
+    }
+})
+
+function restarStock () {
+    carrito.forEach(producto => {
+        
+    });
+}
+
+btnConfirmarCompra.addEventListener('click', () => {
+
+    const compraNombre = document.getElementById('compraNombre'),
+        compraEmail = document.getElementById('compraEmail');
+
+    if (compraNombre.value != '' && compraEmail.value != '' && compraDirec.value != '' && compraAltura.value != '' && compraCP.value != '') {
+        if (validarEmail(compraEmail.value)) {
+
+            //restarStock();
+
+            Swal.fire({
+                position: 'center',
+                title: `¡Gracias por realizar tu compra con nosotros!
+                En el transcurso del día la enviaremos a ${compraDirec.value}.`,
+                showConfirmButton: false,
+                timer: 3000
+            })
+
+            vaciarCarrito();
+        
+            setTimeout(() => {
+                location.href = "index.html";
+            }, 3500);
+        
+        } else {
+            compraProblem.innerHTML = `<h5>* La dirección de correo electrónico no es válida.</h5>`;
+        }
+    } else {
+        compraProblem.innerHTML = `<h5>* Todos los campos deben ser completados para poder realizar la compra.</h5>`;
+    }
+
+})
