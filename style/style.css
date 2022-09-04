@@ -26,12 +26,6 @@ header {
     margin-left: 20px;
 }
 
-#vistaPrevia {
-    margin-right: 20px;
-    padding: 5px;
-    width: 120px;
-}
-
 h1 {
     margin-left: 10px;
     font-family: 'Quicksand', sans-serif;
@@ -215,6 +209,12 @@ a {
     text-decoration: none;
     color: white;
     cursor: pointer;
+    transition: all 0.3s;
+}
+
+a:hover {
+    background-color: rgb(125, 60, 185);
+    border-radius: 10px;
 }
 
 .dNone {
@@ -262,6 +262,7 @@ a {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .registroContainer {
@@ -290,8 +291,7 @@ a {
 }
 
 button,
-input[type=submit],
-input[type=button] {
+input[type=submit] {
     align-self: center;
     background-color: rgb(165, 88, 238);
     border: 0;
@@ -300,6 +300,13 @@ input[type=button] {
     font-weight: 600;
     padding: 8px 15px;
     max-width: 200px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover,
+input[type=submit]:hover {
+    background-color: rgb(125, 60, 185);
 }
 
 .carritoStyle {
@@ -391,8 +398,15 @@ abbr {
     transition: opacity 0.35s ease;
 }
 
-.modal-btn{
+.modal-btn {
     width: 70px;
+    transition: all 0.3s;
+}
+
+.modal-btn:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px solid rgb(165, 88, 238);
+    border-radius: 100px;
 }
 
 .content-modal {
@@ -432,6 +446,14 @@ abbr {
     overflow-y: scroll;
 }
 
+.btnEliminarCarrito {
+    transition: all  0.3s;
+}
+
+.btnEliminarCarrito:hover {
+    background-color: rgb(190, 0, 0);
+}
+
 .modal-precio {
     height: 40px;
     background-color: rgb(236, 217, 255);
@@ -451,12 +473,25 @@ abbr {
 
 .modal-footer a {
     padding: 10px;
-    border: 1px solid black;
-    border-radius: 20px;
+    border-radius: 15px;
     text-align: center;
     font-family: 'Quicksand', sans-serif;
     background-color: rgb(165, 88, 238);
+    color: black;
+    font-weight: 600;
+    transition: all 0.3s;
+}
 
+.modal-footer a:hover {
+    background-color: rgb(125, 60, 185);
+}
+
+#btnVaciarCarrito {
+    transition: all  0.3s;
+}
+
+#btnVaciarCarrito:hover {
+    background-color: rgb(190, 0, 0);
 }
 
 .modal:target {
@@ -497,7 +532,7 @@ abbr {
     justify-content: space-evenly;
 }
 
-.direccion{
+.direccion {
     display: flex;
     justify-content: space-between;
 }
@@ -527,6 +562,12 @@ abbr {
     margin: 10px 0 30px;
     font-family: 'Quicksand', sans-serif;
     font-weight: 600;
+    transition: all 0.3s;
+}
+
+.cancelarCompra:hover {
+    text-decoration: underline;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .compraInfo {

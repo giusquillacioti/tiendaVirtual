@@ -492,10 +492,6 @@ btnPerfil.addEventListener('click', () => {
     }
 });
 
-
-// --------------------------------- CARRITO ---------------------------------
-
-
 const carrito = JSON.parse(localStorage.getItem('carrito')) || [],
     carritoContainer = document.getElementById('carritoContainer'),
     btnAgregarCarrito = document.getElementsByClassName('btnAgregarCarrito'),
@@ -672,10 +668,25 @@ btnComprar.addEventListener('click', () => {
     }
 })
 
-function restarStock () {
+function restarStock() {
+    let productosGuardados = JSON.parse(localStorage.getItem('productos'));
+
     carrito.forEach(producto => {
-        
+        let idCarrito = producto.id;
+        let cantidadCarrito = producto.cantidad;
+
+        let productoAModificar = productosGuardados.find(producto => producto.id === idCarrito);
+
+        let nuevoStock = productoAModificar.stock - cantidadCarrito;
+
+        productosGuardados.forEach(producto => {
+            if (idCarrito === producto.id) {
+                producto.stock = nuevoStock;
+            }
+        });
     });
+
+    localStorage.setItem('productos', JSON.stringify(productosGuardados));
 }
 
 btnConfirmarCompra.addEventListener('click', () => {
@@ -686,27 +697,26 @@ btnConfirmarCompra.addEventListener('click', () => {
     if (compraNombre.value != '' && compraEmail.value != '' && compraDirec.value != '' && compraAltura.value != '' && compraCP.value != '') {
         if (validarEmail(compraEmail.value)) {
 
-            //restarStock();
+            restarStock();
 
             Swal.fire({
                 position: 'center',
                 title: `¡Gracias por realizar tu compra con nosotros!
-                En el transcurso del día la enviaremos a ${compraDirec.value}.`,
+                En el transcurso del día la enviaremos a ${compraDirec.value} ${compraAltura.value}.`,
                 showConfirmButton: false,
                 timer: 3000
             })
 
             vaciarCarrito();
-        
+
             setTimeout(() => {
                 location.href = "index.html";
             }, 3500);
-        
+
         } else {
             compraProblem.innerHTML = `<h5>* La dirección de correo electrónico no es válida.</h5>`;
         }
     } else {
         compraProblem.innerHTML = `<h5>* Todos los campos deben ser completados para poder realizar la compra.</h5>`;
     }
-
 })
