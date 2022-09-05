@@ -447,7 +447,7 @@ abbr {
 }
 
 .btnEliminarCarrito {
-    transition: all  0.3s;
+    transition: all 0.3s;
 }
 
 .btnEliminarCarrito:hover {
@@ -487,7 +487,7 @@ abbr {
 }
 
 #btnVaciarCarrito {
-    transition: all  0.3s;
+    transition: all 0.3s;
 }
 
 #btnVaciarCarrito:hover {
@@ -615,4 +615,31 @@ body::-webkit-scrollbar-thumb {
 
 #compraProblem {
     color: rgb(122, 0, 0);
+}
+
+#comprasRealizadas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    margin-bottom: 50px;
+}
+
+.compraRealizada {
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: rgb(216, 184, 247);
+    padding: 15px;
+    margin: 20px;
+    width: 250px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+
+.drive {
+    color: black;
+    font-weight: 600;
 }

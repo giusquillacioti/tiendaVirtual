@@ -689,6 +689,25 @@ function restarStock() {
     localStorage.setItem('productos', JSON.stringify(productosGuardados));
 }
 
+const compras = JSON.parse(localStorage.getItem('compras')) || [];
+
+function Compra (usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP) {
+    this.numeroCompra = parseInt(Math.random() * 10000).toString();
+    this.fechaCompra = new Date().toLocaleDateString();
+    this.usuarioNombre = usuarioNombre;
+    this.usuarioEmail = usuarioEmail;
+    this.usuarioDirec = usuarioDirec;
+    this.usuarioAltura = usuarioAltura;
+    this.usuarioCP = usuarioCP;
+}
+
+function agregarCompra(usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP) {
+    const compra = new Compra (usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP);
+    compras.unshift(compra);
+
+    localStorage.setItem('compras', JSON.stringify(compras));
+}
+
 btnConfirmarCompra.addEventListener('click', () => {
 
     const compraNombre = document.getElementById('compraNombre'),
@@ -698,6 +717,8 @@ btnConfirmarCompra.addEventListener('click', () => {
         if (validarEmail(compraEmail.value)) {
 
             restarStock();
+
+            agregarCompra(compraNombre.value, compraEmail.value, compraDirec.value, compraAltura.value, compraCP.value);
 
             Swal.fire({
                 position: 'center',
@@ -720,3 +741,17 @@ btnConfirmarCompra.addEventListener('click', () => {
         compraProblem.innerHTML = `<h5>* Todos los campos deben ser completados para poder realizar la compra.</h5>`;
     }
 })
+
+const comprasRealizadas = document.getElementById('comprasRealizadas');
+
+if (usuario) {
+    compras.forEach(compra => {
+        if (usuario.email === compra.usuarioEmail) {
+            comprasRealizadas.innerHTML += `<div class="compraRealizada">
+            <h3>COMPRA N° ${compra.numeroCompra}</h3>
+            <h4>Fecha: ${compra.fechaCompra}</h4>
+            <h4>Dirección de envío: ${compra.usuarioDirec} ${compra.usuarioAltura} - C.P.(${compra.usuarioCP})</h4>
+            </div>`
+        }
+    })
+}
