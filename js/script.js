@@ -244,7 +244,6 @@ if (display.innerHTML == '') {
 async function getDatabase() {
     const response = await fetch('./js/database.json');
     const database = await response.json();
-    /* console.log(database); */
     localStorage.setItem('database', JSON.stringify(database));
 }
 
@@ -754,4 +753,9 @@ if (usuario) {
             </div>`
         }
     })
+}
+
+if (comprasRealizadas.innerHTML == '') {
+    comprasRealizadas.classList.remove('comprasRealizadas');
+    comprasRealizadas.innerHTML = '<h3 class="noProducts">Aún no realizaste ninguna compra.</h3>';
 }
