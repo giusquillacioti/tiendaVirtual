@@ -15,7 +15,7 @@
 <body>
 
     <header>
-        <div class="headerTitle">
+        <div class="header--title">
             <figure class="icon">
                 <img src="./img/shoppingBag.png" alt="icono bolsa de compras" height="40" width="40">
             </figure>
@@ -23,14 +23,14 @@
         </div>
 
 
-        <div class="loginContainer">
+        <div class="header--login">
             <figure>
                 <img src="./img/login.png" alt="login" height="35" width="35">
                 <figcaption class="loggedA loggedB"><a id="iniciarSesion">Iniciar sesión</a></figcaption>
             </figure>
 
-            <div class="optionsContainer">
-                <div class="options loggedA loggedB dNone">
+            <div class="header--login--options">
+                <div class="header--login--options--logged loggedA loggedB dNone">
                     <a id="btnPerfil">Mi perfil</a>
                     <a id="cerrarSesion">Cerrar sesión</a>
                 </div>
@@ -41,9 +41,9 @@
 
     <main class="registro compra">
 
-        <section class="profile">
+        <section class="profile draft">
 
-            <section class="start loggedA dNone">
+            <section class="draft--name loggedA dNone">
 
                 <p><strong>¡Bienvenido/a!</strong> Esta es tu tienda virtual. En ella podrás exhibir y vender de forma
                     remota lo que tu emprendimiento tiene para ofrecer.
@@ -57,11 +57,11 @@
 
             </section>
 
-            <h2 class="pTitle">Productos</h2>
+            <h2 class="title">Productos</h2>
 
-            <section class="draftContainer loggedA dNone">
+            <section class="draft--prod loggedA dNone">
 
-                <div class="draft">
+                <div class="draft--prod--info">
                     <h3>Nuevo Producto</h3>
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre">
@@ -74,11 +74,12 @@
                     <input id="btnNuevo" type="submit" value="Agregar nuevo producto">
                 </div>
 
-                <div class="tutorialContainer">
-                    <div class="imgTutorial">
+                <div class="draft--prod--tutorial">
+                    <div class="draft--prod--tutorial--exp">
                         <h4>¡Atención!</h4>
-                        <p>Nuestro sitio web trabaja con imágenes de <a class="drive" href="https://www.google.com/intl/es/drive/"
-                                target="_blank">Google Drive</a>. Para poder exhibir las fotos de tus productos, seguí
+                        <p>Nuestro sitio web trabaja con imágenes de <a class="draft--prod--tutorial--exp--drive"
+                                href="https://www.google.com/intl/es/drive/" target="_blank">Google Drive</a>. Para
+                            poder exhibir las fotos de tus productos, seguí
                             estos
                             pasos:</p>
                         <ol>
@@ -143,20 +144,20 @@
 
         <section class="profile dNone">
 
-            <section class="profileContainer">
+            <section class="profile--container">
                 <figure>
                     <img src="../img/login.png" alt="perfil" width="200" height="200">
                 </figure>
                 <div id="profileInfo"></div>
             </section>
-            
+
             <section id="comprasContainer" class="loggedBtns dNone">
-                <h3 class="pTitle">Mis compras</h3>
+                <h3 class="title">Mis compras</h3>
                 <section id="comprasRealizadas" class="comprasRealizadas"></section>
             </section>
 
             <section id="authorizedContainer">
-                <h3 class="pTitle">Perfiles de la empresa</h3>
+                <h3 class="title">Perfiles de la empresa</h3>
                 <section id="authorizedProfiles"></section>
             </section>
 
@@ -165,11 +166,11 @@
     </main>
 
     <section class="registro dNone">
-        <section class="registroContainer">
+        <section class="registro--container">
 
-            <h2 class="pTitle">Crear una cuenta</h2>
+            <h2 class="title">Crear una cuenta</h2>
 
-            <div class="registerForm">
+            <div class="registro--container--form">
                 <label for="nombre">Nombre</label>
                 <input type="text" name="nombre" id="nombreReg">
                 <label for="apellido">Apellido</label>
@@ -188,20 +189,20 @@
     </section>
 
     <section class="compra dNone">
-        <section class="compraContainer">
+        <section class="compra--container">
 
-            <h2 class="pTitle">Realizar compra</h2>
+            <h2 class="title">Realizar compra</h2>
 
-            <div class="compraInfo">
+            <div class="compra--container--info">
                 <div id="carritoCompra"></div>
 
                 <div>
-                    <div class="compraForm">
+                    <div class="compra--container--info--form">
                         <h3>Datos de contacto</h3>
                         <div id="datosUsuarioCompra"></div>
                         <h3>Entrega</h3>
                         <label for="compraDirec compraAltura">Dirección de envío</label>
-                        <div class="direccion">
+                        <div class="compra--container--info--form--direccion">
                             <input type="text" name="compraDirec" id="compraDirec" placeholder="Calle">
                             <input type="number" name="compraAltura" id="compraAltura" placeholder="Numeración">
                         </div>
@@ -214,7 +215,7 @@
                         <div id="compraProblem"></div>
                     </div>
 
-                    <div class="compraBtns">
+                    <div class="compra--container--info--btns">
                         <button id="btnConfirmarCompra">Confirmar compra</button>
                         <a id="btnCancelarCompra" class="cancelarCompra" href="index.html">Cancelar</a>
                     </div>

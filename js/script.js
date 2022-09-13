@@ -268,7 +268,7 @@ registrar.addEventListener('click', () => {
     } else {
         registrar.innerText = 'Registrarme';
     }
-})
+});
 
 function Cuenta(nombre, apellido, email, contrasena) {
     this.firstName = nombre;
@@ -286,12 +286,12 @@ function agregarCuenta(nombre, apellido, email, contrasena) {
     localStorage.setItem('registrados', JSON.stringify(registrados));
 
     return cuenta;
-};
+}
 
 function validarEmail(email) {
     const validacion = /\S+@\S+\.\S+/;
     return validacion.test(email);
-};
+}
 
 btnCrearCuenta.addEventListener('click', () => {
 
@@ -530,7 +530,7 @@ function agregarAlCarrito(objectId) {
                     });
                 }
             }
-        })
+        });
     } else {
         const producto = productos.find(producto => producto.id === objectId);
         carrito.push(producto);
@@ -690,7 +690,7 @@ function restarStock() {
 
 const compras = JSON.parse(localStorage.getItem('compras')) || [];
 
-function Compra (usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP) {
+function Compra(usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP) {
     this.numeroCompra = parseInt(Math.random() * 10000).toString();
     this.fechaCompra = new Date().toLocaleDateString();
     this.usuarioNombre = usuarioNombre;
@@ -701,7 +701,7 @@ function Compra (usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuar
 }
 
 function agregarCompra(usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP) {
-    const compra = new Compra (usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP);
+    const compra = new Compra(usuarioNombre, usuarioEmail, usuarioDirec, usuarioAltura, usuarioCP);
     compras.unshift(compra);
 
     localStorage.setItem('compras', JSON.stringify(compras));
